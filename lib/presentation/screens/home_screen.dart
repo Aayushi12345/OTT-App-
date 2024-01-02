@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ott_app/data/models/movie_model.dart';
 import 'package:ott_app/logic/cubit/movie_cubit.dart';
 import 'package:ott_app/logic/cubit/movie_state.dart';
+import 'package:ott_app/routes/app_router.gr.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,13 +60,32 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context, index) {
         Results movieResult = movieModel.results![index];
 
-        return ListTile(
-            title: Text("Country: ${movieResult.originalTitle}"),
-            leading: SizedBox(
-                height: 100.0,
-                width: 100.0, // fixed width and height
-                child: Image.network(
-                    imageUrl +movieResult.posterPath.toString())));
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(28.0),
+              child: TextButton(
+                  onPressed: () {
+                    context.router.push(DetailScreen(name: "Aayu", id: 1) );
+                    // mytext = "";
+                  },
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: EdgeInsets.all(16.0),
+                    foregroundColor: Colors.black,
+                    textStyle: TextStyle(fontSize: 20)),
+                child: Text('Detail Screen'),
+              ),
+            ),
+            ListTile(
+                title: Text(movieResult.originalTitle.toString()),
+                leading: SizedBox(
+                    height: 100.0,
+                    width: 100.0, // fixed width and height
+                    child: Image.network(
+                        imageUrl +movieResult.posterPath.toString()))),
+          ],
+        );
       },
     );
   }
