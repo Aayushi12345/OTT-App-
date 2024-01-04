@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ott_app/logic/cubit/movie_cubit.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
+import 'package:ott_app/themes/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
       create: (context) => MovieCubit(),
       child: MaterialApp.router(
       routerDelegate: _appRouter.delegate(),
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
     routeInformationParser: _appRouter.defaultRouteParser()
       ),
     );
