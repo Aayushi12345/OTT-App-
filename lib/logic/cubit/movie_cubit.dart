@@ -16,7 +16,7 @@ class MovieCubit extends Cubit<MovieState> {
       MovieModel posts = await repository.fetchMoviesData();
       emit(LoadedState(posts));
     } on DioError catch (ex) {
-      if (ex.type == DioErrorType.other) {
+      if (ex.type == DioErrorType.values) {
         emit(ErrorState(
             "Can't fetch posts, please check your internet connection!"));
       } else {

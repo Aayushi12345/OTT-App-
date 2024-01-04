@@ -4,7 +4,6 @@ import 'package:ott_app/data/repositories%20/api/api.dart';
 
 class Repository {
   API api = API();
-
   Future<MovieModel> fetchMoviesData() async {
     try {
       Response response =
