@@ -1,56 +1,60 @@
-class MovieModel {
-  int? page;
+import 'package:json_annotation/json_annotation.dart';
+import 'package:equatable/equatable.dart';
+
+part 'movie_model.g.dart';
+
+@JsonSerializable(createToJson: false)
+class MovieModel extends Equatable{
   List<Results>? results;
+  int? page;
   int? totalPages;
   int? totalResults;
 
-  MovieModel(
-      {this.page,
-      this.results,
-      this.totalPages,
-      this.totalResults,
-      required title,
-      required String urlImage});
+  MovieModel({
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
+  });
 
-  MovieModel.fromJson(Map<String, dynamic> json) {
-    page = json['page'];
-    if (json['results'] != null) {
-      results = <Results>[];
-      json['results'].forEach((v) {
-        results!.add(new Results.fromJson(v));
-      });
-    }
-    totalPages = json['total_pages'];
-    totalResults = json['total_results'];
-  }
+  factory MovieModel.fromJson(Map<String, dynamic> map) =>
+      _$MovieModelFromJson(map);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['page'] = this.page;
-    if (this.results != null) {
-      data['results'] = this.results!.map((v) => v.toJson()).toList();
-    }
-    data['total_pages'] = this.totalPages;
-    data['total_results'] = this.totalResults;
-    return data;
-  }
+  @override
+  List<Object?> get props =>[results];
 }
 
-class Results {
-  bool? adult;
-  String? backdropPath;
-  int? id;
+@JsonSerializable(createToJson: false)
+class Results extends Equatable{
+  @JsonKey(name: "title")
   String? title;
-  String? originalLanguage;
-  String? originalTitle;
+  @JsonKey(name: "overview")
   String? overview;
+  @JsonKey(name: "poster_path")
   String? posterPath;
+  @JsonKey(name: "adult")
+  bool? adult;
+  @JsonKey(name: "backdrop_path")
+  String? backdropPath;
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "original_language")
+  String? originalLanguage;
+  @JsonKey(name: "original_title")
+  String? originalTitle;
+  @JsonKey(name: "media_type")
   String? mediaType;
+  @JsonKey(name: "genre_ids")
   List<int>? genreIds;
+  @JsonKey(name: "popularity")
   double? popularity;
+  @JsonKey(name: "release_date")
   String? releaseDate;
+  @JsonKey(name: "video")
   bool? video;
+  @JsonKey(name: "vote_average")
   double? voteAverage;
+  @JsonKey(name: "vote_count")
   int? voteCount;
 
   Results(
@@ -70,41 +74,9 @@ class Results {
       this.voteAverage,
       this.voteCount});
 
-  Results.fromJson(Map<String, dynamic> json) {
-    adult = json['adult'];
-    backdropPath = json['backdrop_path'];
-    id = json['id'];
-    title = json['title'];
-    originalLanguage = json['original_language'];
-    originalTitle = json['original_title'];
-    overview = json['overview'];
-    posterPath = json['poster_path'];
-    mediaType = json['media_type'];
-    genreIds = json['genre_ids'].cast<int>();
-    popularity = json['popularity'];
-    releaseDate = json['release_date'];
-    video = json['video'];
-    voteAverage = json['vote_average'];
-    voteCount = json['vote_count'];
-  }
+  factory Results.fromJson(Map<String, dynamic> map) => _$ResultsFromJson(map);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['adult'] = this.adult;
-    data['backdrop_path'] = this.backdropPath;
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['original_language'] = this.originalLanguage;
-    data['original_title'] = this.originalTitle;
-    data['overview'] = this.overview;
-    data['poster_path'] = this.posterPath;
-    data['media_type'] = this.mediaType;
-    data['genre_ids'] = this.genreIds;
-    data['popularity'] = this.popularity;
-    data['release_date'] = this.releaseDate;
-    data['video'] = this.video;
-    data['vote_average'] = this.voteAverage;
-    data['vote_count'] = this.voteCount;
-    return data;
-  }
+  @override
+  List<Object?> get props => [adult,backdropPath,id,title,originalLanguage,originalTitle,overview,
+    posterPath,mediaType,genreIds,popularity,releaseDate,video,voteAverage,voteCount];
 }
