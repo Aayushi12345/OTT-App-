@@ -64,7 +64,6 @@ final List<Widget> imageSliders = imgList
         ))
     .toList();
 
-
 class _HomeScreenState extends State<HomeScreen> {
   String imageUrl = 'https://image.tmdb.org/t/p/w185';
 
@@ -87,62 +86,118 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               items: imageSliders,
             ),
-            Container(
-                child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("First Name",
-                    style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 25.00,
-                        fontWeight: FontWeight.bold)),
-                Text("Last Name",
-                    style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 25.00,
-                        fontWeight: FontWeight.bold)),
-              ],
-            )),
+            BlocConsumer<MovieCubit, MovieState>(
+              listener: (context, state) {
+                if (state is ErrorState) {
+                  SnackBar snackBar = SnackBar(
+                    content: Text(state.error),
+                    backgroundColor: Colors.red,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+              },
+              builder: (context, state) {
+                if (state is LoadingState) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
+                if (state is LoadedState) {
+                  return Expanded(
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 4.0,
+                              mainAxisSpacing: 4.0),
+                      itemCount: state.posts.results!.length,
+                      itemBuilder: (context, index) {
+                        Results movieResult = state.posts.results![index];
+                        return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                                elevation: 50,
+                                shadowColor: Colors.black,
+                                color: Colors.greenAccent[100],
+                                child: SizedBox(
+                                    width: 300,
+                                    height: 400,
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(children: [
+                                          Image.network(
+                                            imageUrl +
+                                                movieResult.posterPath
+                                                    .toString(),
+                                            fit: BoxFit.fill,
+                                            height: 100,
+                                            width: 400,
+                                          ), //NetworkImage
+
+                                          Row(
+                                            // crossAxisAlignment:
+                                            // CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                movieResult.originalTitle
+                                                    .toString(),
+                                                maxLines: 3,
+                                                style: TextStyle(
+
+                                                  fontSize: 15,
+                                                  color: Colors.green[900],
+                                                  fontWeight: FontWeight.w500,
+                                                ), //Textstyle
+                                              ),
+                                 IconButton(onPressed: (){}, icon: Icon(
+                                   Icons.favorite_outline_rounded,
+                                   color: Colors.red,
+
+                                 ),)
+
+                                            ],
+                                          ), //Text
+                                        ])))));
+                      },
+                    ),
+                  );
+                  // return buildMovieListView(state.posts);
+                }
+
+                return const Center(
+                  child: Text("An error occured!"),
+                );
+              },
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget buildMovieListView(MovieModel movieModel) {
-    return ListView.builder(
-      itemCount: movieModel.results!.length,
-      itemBuilder: (context, index) {
-        Results movieResult = movieModel.results![index];
-
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(28.0),
-              child: TextButton(
-                onPressed: () {
-                  context.router.push(DetailScreen(name: "Aayu", id: 1));
-                  // mytext = "";
-                },
-                style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: EdgeInsets.all(16.0),
-                    foregroundColor: Colors.black,
-                    textStyle: TextStyle(fontSize: 20)),
-                child: Text('Detail Screen'),
-              ),
-            ),
-            ListTile(
-                title: Text(movieResult.originalTitle.toString()),
-                leading: SizedBox(
-                    height: 100.0,
-                    width: 100.0, // fixed width and height
-                    child: Image.network(
-                        imageUrl + movieResult.posterPath.toString()))),
-          ],
-        );
-      },
-    );
-  }
+// Widget buildMovieListView(MovieModel movieModel) {
+//   return ListView.builder(
+//     itemCount: movieModel.results!.length,
+//     itemBuilder: (context, index) {
+//       Results movieResult = movieModel.results![index];
+//
+//       return Column(
+//         children: [
+//           // Padding(
+//           //   padding: const EdgeInsets.all(28.0),
+//           //
+//           // ),
+//           ListTile(
+//               title: Text(movieResult.originalTitle.toString()),
+//               leading: SizedBox(
+//                   height: 100.0,
+//                   width: 100.0, // fixed width and height
+//                   child: Image.network(
+//                       imageUrl + movieResult.posterPath.toString()))),
+//         ],
+//       );
+//     },
+//   );
+// }
 }
