@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ott_app/data/models/movie_model.dart';
 import 'package:ott_app/logic/cubit/movie_cubit.dart';
 import 'package:ott_app/logic/cubit/movie_state.dart';
+import 'package:ott_app/provider/favorite_provider.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
+// import 'package:ott_app/presentation/screens/Favorite_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -69,7 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final provider = FavoriteProvider.of(context);
+    return BlocProvider<MovieCubit>(
+        create: (context) =>MovieCubit(),
+    child: MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -86,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               items: imageSliders,
             ),
+
             BlocConsumer<MovieCubit, MovieState>(
               listener: (context, state) {
                 if (state is ErrorState) {
@@ -144,24 +150,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .toString(),
                                                 maxLines: 3,
                                                 style: TextStyle(
-
                                                   fontSize: 15,
                                                   color: Colors.green[900],
                                                   fontWeight: FontWeight.w500,
                                                 ), //Textstyle
                                               ),
-                                 IconButton(onPressed: (){}, icon: Icon(
-                                   Icons.favorite_outline_rounded,
-                                   color: Colors.red,
-
-                                 ),)
-
+                                              IconButton(
+                                                onPressed: () {
+                                                  provider.toggleFavorites(movieResult);
+                                                },
+                                                  // icon:
+                                                icon:provider.isExist(movieResult)?
+                                                  const
+                                                Icon(Icons.favorite, color: Colors.red)
+                                                      : Icon(Icons.favorite, color: Colors.white)
+                                              )
                                             ],
                                           ), //Text
-                                        ])))));
+                                        ]
+                                        )
+
+                                    )
+                                )
+                            )
+
+                        );
                       },
                     ),
+
                   );
+
                   // return buildMovieListView(state.posts);
                 }
 
@@ -170,9 +188,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             )
+
           ],
+
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            context.router.push(const FavoriteScreen() );
+
+          },
+          label: const Text('Favorites'),
         ),
       ),
+    )
     );
   }
 
