@@ -1,8 +1,7 @@
+import 'package:auto_route/annotations.dart';
 import 'package:dio/dio.dart';
-import 'package:ott_app/data/network/typedefs.dart';
+import 'package:ott_app/data/models/base_model.dart';
 
-
-// typedef JSON = Map<String, dynamic>;
 abstract class ApiInterface {
   const ApiInterface();
 
@@ -19,7 +18,8 @@ abstract class ApiInterface {
 
   Future<T> postDataFromApi<T>(
       {required String endpoint,
-        required Map<String, dynamic>? queryParam,
+        required QueryParam? queryParam,
         CancelToken? cancelToken,
+        Object? body,
         required T Function(JSON responseBody) converter});
 }
