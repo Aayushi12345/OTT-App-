@@ -5,15 +5,13 @@ import 'package:ott_app/data/repositories%20/repository.dart';
 import 'package:ott_app/logic/cubit/movie_state.dart';
 
 class MovieCubit extends Cubit<MovieState> {
-  MovieCubit() : super(LoadingState()) {
-    fetchMovieData();
-  }
+  final Repository _repository;
 
-  Repository repository = Repository();
+  MovieCubit(this._repository) : super(LoadingState());
 
   void fetchMovieData() async {
     try {
-      MovieModel posts = await repository.fetchMoviesData();
+      MovieModel posts =  await _repository.getMoviesData();
       emit(LoadedState(posts));
     } on DioError catch (ex) {
       if (ex.type == DioErrorType.values) {

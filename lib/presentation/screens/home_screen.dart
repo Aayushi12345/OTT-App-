@@ -7,7 +7,7 @@ import 'package:ott_app/logic/cubit/movie_cubit.dart';
 import 'package:ott_app/logic/cubit/movie_state.dart';
 import 'package:ott_app/provider/favorite_provider.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
-// import 'package:ott_app/presentation/screens/Favorite_screen.dart';
+import 'package:ott_app/utils/constant.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -67,10 +67,32 @@ final List<Widget> imageSliders = imgList
     .toList();
 
 class _HomeScreenState extends State<HomeScreen> {
-  String imageUrl = 'https://image.tmdb.org/t/p/w185';
+  String imageUrl = Constant.IMAGE_BASE_URL;
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Movie List"),
+      ),
+      body: SafeArea(
+        child: BlocConsumer<MovieCubit, MovieState>(
+          listener: (context, state) {
+            if (state is ErrorState) {
+              SnackBar snackBar = SnackBar(
+                content: Text(state.error),
+                backgroundColor: Colors.red,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          builder: (context, state) {
+            if (state is LoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
     final provider = FavoriteProvider.of(context);
     return BlocProvider<MovieCubit>(
         create: (context) =>MovieCubit(),
