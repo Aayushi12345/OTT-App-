@@ -5,6 +5,7 @@ import 'package:ott_app/data/models/movie_model.dart';
 import 'package:ott_app/logic/cubit/movie_cubit.dart';
 import 'package:ott_app/logic/cubit/movie_state.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
+import 'package:ott_app/utils/constant.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String imageUrl = 'https://image.tmdb.org/t/p/w185';
+  String imageUrl = Constant.IMAGE_BASE_URL;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           builder: (context, state) {
             if (state is LoadingState) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return buildMovieListView(state.posts);
             }
 
-            return Center(
+            return const Center(
               child: Text("An error occured!"),
             );
           },

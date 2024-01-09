@@ -7,7 +7,9 @@ import 'package:ott_app/data/repositories%20/api/api_service.dart';
 import 'package:ott_app/di/service_locator.dart';
 
 class ApiClient implements ApiInterface {
-  final ApiService _apiService = TTNSL.get<ApiService>();
+  final ApiService _apiService;
+
+  ApiClient() : _apiService = TTNSL.get<ApiService>();
 
   @override
   void cancelRequests({CancelToken? cancelToken}) {
@@ -55,25 +57,4 @@ class ApiClient implements ApiInterface {
     // TODO: implement postDataFromApi
     throw UnimplementedError();
   }
-
-// @override
-// Future<T> postDataFromApi<T>(
-//     {required String endpoint,
-//     required QueryParams? queryParam,
-//     CancelToken? cancelToken,
-//     Object? body,
-//       required T Function(JSON responseBody) converter}) async {
-// Object? response;
-// try {
-//   // Entire map of response
-//   final data = await _apiService.postRequest<BaseResponse?>(
-//       endpoint, queryParam, body, cancelToken);
-//
-//   // Items of table as json
-//   response = data.body;
-// } on Exception catch (ex) {
-//   throw CustomException.fromDioException(ex);
-// }
-// return mapObjectIntoModel(converter, response!);
-// }
 }
