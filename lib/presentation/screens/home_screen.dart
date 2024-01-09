@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ott_app/data/models/movie_model.dart';
+import 'package:ott_app/data/repositories%20/repository.dart';
 import 'package:ott_app/logic/cubit/movie_cubit.dart';
 import 'package:ott_app/logic/cubit/movie_state.dart';
 import 'package:ott_app/provider/favorite_provider.dart';
@@ -26,43 +27,41 @@ final List<String> imgList = [
 ];
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
-          child: Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                child: Stack(
-                  children: <Widget>[
-                    Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(200, 0, 0, 0),
-                              Color.fromARGB(0, 0, 0, 0)
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                          ),
+          margin: const EdgeInsets.all(5.0),
+          child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              child: Stack(
+                children: <Widget>[
+                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                  Positioned(
+                    bottom: 0.0,
+                    left: 0.0,
+                    right: 0.0,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(200, 0, 0, 0),
+                            Color.fromARGB(0, 0, 0, 0)
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
-                        child: Text(
-                          'No. ${imgList.indexOf(item)} image',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 20.0),
+                      child: Text(
+                        'No. ${imgList.indexOf(item)} image',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ))
     .toList();
 
@@ -71,160 +70,137 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Movie List"),
-      ),
-      body: SafeArea(
-        child: BlocConsumer<MovieCubit, MovieState>(
-          listener: (context, state) {
-            if (state is ErrorState) {
-              SnackBar snackBar = SnackBar(
-                content: Text(state.error),
-                backgroundColor: Colors.red,
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            }
-          },
-          builder: (context, state) {
-            if (state is LoadingState) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
     final provider = FavoriteProvider.of(context);
     return BlocProvider<MovieCubit>(
-        create: (context) =>MovieCubit(),
-    child: MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Movie List"),
-        ),
-        body: Column(
-          children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                aspectRatio: 2.0,
-                enlargeCenterPage: true,
-                scrollDirection: Axis.horizontal,
-                autoPlay: true,
-              ),
-              items: imageSliders,
+        create: (context) => MovieCubit((Repository())..getMoviesData()),
+        child: MaterialApp(
+          home: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text("Movie List"),
             ),
+            body: Column(
+              children: [
+                CarouselSlider(
+                  options: CarouselOptions(
+                    aspectRatio: 2.0,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                    autoPlay: true,
+                  ),
+                  items: imageSliders,
+                ),
+                BlocConsumer<MovieCubit, MovieState>(
+                  listener: (context, state)
+                  {
+                    if (state is ErrorState) {
+                      SnackBar snackBar = SnackBar(
+                        content: Text(state.error),
+                        backgroundColor: Colors.red,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is LoadingState) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-            BlocConsumer<MovieCubit, MovieState>(
-              listener: (context, state) {
-                if (state is ErrorState) {
-                  SnackBar snackBar = SnackBar(
-                    content: Text(state.error),
-                    backgroundColor: Colors.red,
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-              },
-              builder: (context, state) {
-                if (state is LoadingState) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-
-                if (state is LoadedState) {
-                  return Expanded(
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 4.0,
-                              mainAxisSpacing: 4.0),
-                      itemCount: state.posts.results!.length,
-                      itemBuilder: (context, index) {
-                        Results movieResult = state.posts.results![index];
-                        return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                                elevation: 50,
-                                shadowColor: Colors.black,
-                                color: Colors.greenAccent[100],
-                                child: SizedBox(
-                                    width: 300,
-                                    height: 400,
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(children: [
-                                          Image.network(
-                                            imageUrl +
-                                                movieResult.posterPath
-                                                    .toString(),
-                                            fit: BoxFit.fill,
-                                            height: 100,
-                                            width: 400,
-                                          ), //NetworkImage
-
-                                          Row(
-                                            // crossAxisAlignment:
-                                            // CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                movieResult.originalTitle
-                                                    .toString(),
-                                                maxLines: 3,
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.green[900],
-                                                  fontWeight: FontWeight.w500,
-                                                ), //Textstyle
+                    if (state is LoadedState) {
+                      return Expanded(
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 4.0,
+                                  mainAxisSpacing: 4.0),
+                          itemCount: state.posts.results!.length,
+                          itemBuilder: (context, index) {
+                            Results movieResult = state.posts.results![index];
+                            return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                    elevation: 50,
+                                    shadowColor: Colors.black,
+                                    color: Colors.greenAccent[100],
+                                    child: SizedBox(
+                                        width: 300,
+                                        height: 400,
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(children: [
+                                              Image.network(
+                                                imageUrl +
+                                                    movieResult.posterPath
+                                                        .toString(),
+                                                fit: BoxFit.fill,
+                                                height: 100,
+                                                width: 400,
                                               ),
-                                              IconButton(
-                                                onPressed: () {
-                                                  provider.toggleFavorites(movieResult);
-                                                },
-                                                  // icon:
-                                                icon:provider.isExist(movieResult)?
-                                                  const
-                                                Icon(Icons.favorite, color: Colors.red)
-                                                      : Icon(Icons.favorite, color: Colors.white)
-                                              )
-                                            ],
-                                          ), //Text
-                                        ]
-                                        )
+                                              //NetworkImage
 
-                                    )
-                                )
-                            )
+                                              Row(
+                                                // crossAxisAlignment:
+                                                // CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    movieResult.originalTitle
+                                                        .toString(),
+                                                    maxLines: 3,
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.green[900],
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ), //Textstyle
+                                                  ),
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        provider
+                                                            .toggleFavorites(
+                                                                movieResult);
+                                                      },
+                                                      // icon:
+                                                      icon: provider.isExist(
+                                                              movieResult)
+                                                          ? const Icon(
+                                                              Icons.favorite,
+                                                              color: Colors.red)
+                                                          : const Icon(
+                                                              Icons.favorite,
+                                                              color:
+                                                                  Colors.white))
+                                                ],
+                                              ),
+                                              //Text
+                                            ])))));
+                          },
+                        ),
+                      );
 
-                        );
-                      },
-                    ),
+                      // return buildMovieListView(state.posts);
+                    }
 
-                  );
-
-                  // return buildMovieListView(state.posts);
-                }
-
-                return const Center(
-                  child: Text("An error occured!"),
-                );
+                    return const Center(
+                      child: Text("An error occured!"),
+                    );
+                  },
+                )
+              ],
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () {
+                context.router.push(const FavoriteScreen());
               },
-            )
-
-          ],
-
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            context.router.push(const FavoriteScreen() );
-
-          },
-          label: const Text('Favorites'),
-        ),
-      ),
-    )
-    );
+              label: const Text('Favorites'),
+            ),
+          ),
+        ));
   }
+}
 
 // Widget buildMovieListView(MovieModel movieModel) {
 //   return ListView.builder(
@@ -250,4 +226,3 @@ class _HomeScreenState extends State<HomeScreen> {
 //     },
 //   );
 // }
-}
