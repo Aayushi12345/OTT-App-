@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final provider = FavoriteProvider.of(context);
     return BlocProvider<MovieCubit>(
-        create: (context) => MovieCubit((Repository())..getMoviesData()),
+        create: (context) => MovieCubit(Repository())..fetchMovieData(),
         child: MaterialApp(
           home: Scaffold(
             appBar: AppBar(
@@ -143,19 +143,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                               //NetworkImage
 
                                               Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 // crossAxisAlignment:
                                                 // CrossAxisAlignment.end,
                                                 children: [
-                                                  Text(
-                                                    movieResult.originalTitle
-                                                        .toString(),
-                                                    maxLines: 3,
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.green[900],
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ), //Textstyle
+                                                  Expanded(
+                                                    child: Text(
+                                                      movieResult.originalTitle
+                                                          .toString(),
+                                                      maxLines: 2,
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.green[900],
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ), //Textstyle
+                                                    ),
                                                   ),
                                                   IconButton(
                                                       onPressed: () {
