@@ -10,9 +10,10 @@ class Repository {
     _apiService = TTNSL.get<ApiClient>();
   }
 
-  Future<MovieModel> getMoviesData() async {
+  Future<MovieModel> getMoviesData(int pageNo) async {
     final response = await _apiService.getDataFromApi(
-        endpoint: Constant.GET_MOVIES, converter: MovieModel.fromJson);
+        endpoint: Constant.GET_MOVIES, converter: MovieModel.fromJson,
+        queryParams: {"api_key": Constant.API_KEY, "page": pageNo});
     return response;
   }
 }

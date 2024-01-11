@@ -7,7 +7,9 @@ part 'movie_model.g.dart';
 class MovieModel extends Equatable{
   List<Results>? results;
   int? page;
+  @JsonKey(name: "total_pages")
   int? totalPages;
+  @JsonKey(name: "total_results")
   int? totalResults;
 
   MovieModel({

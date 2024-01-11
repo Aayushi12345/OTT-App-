@@ -67,12 +67,13 @@ final List<Widget> imageSliders = imgList
 
 class _HomeScreenState extends State<HomeScreen> {
   String imageUrl = Constant.IMAGE_BASE_URL;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     final provider = FavoriteProvider.of(context);
     return BlocProvider<MovieCubit>(
-        create: (context) => MovieCubit(Repository())..fetchMovieData(),
+        create: (context) => MovieCubit(Repository())..loadSecondPageOfMovie(),
         child: MaterialApp(
           home: Scaffold(
             appBar: AppBar(
@@ -81,117 +82,150 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             body: Column(
               children: [
-                CarouselSlider(
-                  options: CarouselOptions(
-                    aspectRatio: 2.0,
-                    enlargeCenterPage: true,
-                    scrollDirection: Axis.horizontal,
-                    autoPlay: true,
-                  ),
-                  items: imageSliders,
-                ),
-                BlocConsumer<MovieCubit, MovieState>(
-                  listener: (context, state)
-                  {
-                    if (state is ErrorState) {
-                      SnackBar snackBar = SnackBar(
-                        content: Text(state.error),
-                        backgroundColor: Colors.red,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is LoadingState) {
+                Column(
+                  children: [
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        aspectRatio: 2.0,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                        autoPlay: true,
+                      ),
+                      items: imageSliders,
+                    ),
+                    BlocBuilder<MovieCubit, MovieState>(builder: (context, state) {
+                      if (state is ErrorState) {
+                        SnackBar snackBar = SnackBar(
+                          content: Text(state.error),
+                          backgroundColor: Colors.red,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+
+                      if (state is LoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      if (state is LoadedState) {
+                        return SizedBox(
+                          height: 500,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: GridView.builder(
+                                  controller: initScrollListener(context),
+                                  // physics: const NeverScrollableScrollPhysics(),
+
+                                  shrinkWrap: true,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 4.0,
+                                          mainAxisSpacing: 4.0),
+                                  itemCount: state.gridList!.length,
+                                  itemBuilder: (context, index) {
+                                    Results movieResult = state.gridList![index];
+                                    // Results movieResult = state.posts.results![index];
+                                    return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Card(
+                                            elevation: 50,
+                                            shadowColor: Colors.black,
+                                            color: Colors.greenAccent[100],
+                                            child: SizedBox(
+                                                width: 300,
+                                                height: 400,
+                                                child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(8.0),
+                                                    child: Column(children: [
+                                                      Image.network(
+                                                        imageUrl +
+                                                            movieResult.posterPath
+                                                                .toString(),
+                                                        fit: BoxFit.fill,
+                                                        height: 100,
+                                                        width: 400,
+                                                      ),
+                                                      //NetworkImage
+
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        // crossAxisAlignment:
+                                                        // CrossAxisAlignment.end,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              movieResult
+                                                                  .originalTitle
+                                                                  .toString(),
+                                                              maxLines: 2,
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                                color: Colors
+                                                                    .green[900],
+                                                                fontWeight:
+                                                                    FontWeight.w500,
+                                                              ), //Textstyle
+                                                            ),
+                                                          ),
+                                                          IconButton(
+                                                              onPressed: () {
+                                                                provider
+                                                                    .toggleFavorites(
+                                                                        movieResult);
+                                                              },
+                                                              // icon:
+                                                              icon: provider.isExist(
+                                                                      movieResult)
+                                                                  ? const Icon(
+                                                                      Icons
+                                                                          .favorite,
+                                                                      color: Colors
+                                                                          .red)
+                                                                  : const Icon(
+                                                                      Icons
+                                                                          .favorite,
+                                                                      color: Colors
+                                                                          .white))
+                                                        ],
+                                                      ),
+                                                      //Text
+                                                    ])))));
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: state.isReachedEnd
+                                    ? const CircularProgressIndicator()
+                                    : Container(),
+                              )
+                            ],
+                          ),
+                        );
+
+                        // child: Container(
+                        //   child: state.isReachedEnd
+                        //       ? const CircularProgressIndicator()
+                        //       : Container(),
+                        // )
+
+                        // child: state.isReachedEnd
+                        //     ? const CircularProgressIndicator()
+                        //     : Container(),
+                      }
+
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: Text("An error occured!"),
                       );
-                    }
-
-                    if (state is LoadedState) {
-                      return Expanded(
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 4.0,
-                                  mainAxisSpacing: 4.0),
-                          itemCount: state.posts.results!.length,
-                          itemBuilder: (context, index) {
-                            Results movieResult = state.posts.results![index];
-                            return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                    elevation: 50,
-                                    shadowColor: Colors.black,
-                                    color: Colors.greenAccent[100],
-                                    child: SizedBox(
-                                        width: 300,
-                                        height: 400,
-                                        child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(children: [
-                                              Image.network(
-                                                imageUrl +
-                                                    movieResult.posterPath
-                                                        .toString(),
-                                                fit: BoxFit.fill,
-                                                height: 100,
-                                                width: 400,
-                                              ),
-                                              //NetworkImage
-
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                // crossAxisAlignment:
-                                                // CrossAxisAlignment.end,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      movieResult.originalTitle
-                                                          .toString(),
-                                                      maxLines: 2,
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.green[900],
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ), //Textstyle
-                                                    ),
-                                                  ),
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        provider
-                                                            .toggleFavorites(
-                                                                movieResult);
-                                                      },
-                                                      // icon:
-                                                      icon: provider.isExist(
-                                                              movieResult)
-                                                          ? const Icon(
-                                                              Icons.favorite,
-                                                              color: Colors.red)
-                                                          : const Icon(
-                                                              Icons.favorite,
-                                                              color:
-                                                                  Colors.white))
-                                                ],
-                                              ),
-                                              //Text
-                                            ])))));
-                          },
-                        ),
-                      );
-
-                      // return buildMovieListView(state.posts);
-                    }
-
-                    return const Center(
-                      child: Text("An error occured!"),
-                    );
-                  },
-                )
+                    })
+                  ],
+                ),
               ],
             ),
             floatingActionButton: FloatingActionButton.extended(
@@ -202,6 +236,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ));
+  }
+
+  ScrollController initScrollListener(BuildContext context) {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        BlocProvider.of<MovieCubit>(context).loadMore();
+      }
+    });
+
+    return _scrollController;
   }
 }
 
