@@ -1,40 +1,52 @@
 import 'package:ott_app/data/models/movie_model.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class MovieState  extends Equatable {}
+abstract class MovieState extends Equatable {}
 
 class LoadingState extends MovieState {
-  @override
-  List<Object?> get props => [];}
 
-class LoadedState extends MovieState  {
-  final MovieModel posts;
+  @override
+  List<Object?> get props => [];
+
+}
+
+class LoadedState extends MovieState {
+  final List<Results>? carouselList;
   final List<Results>? gridList;
   final int currentPage;
   final int totalPages;
   final bool isReachedEnd;
+  final int? carouselCurrentPage;
 
-  LoadedState(this.posts, this.gridList, this.currentPage, this.totalPages,
-      this.isReachedEnd);
+  LoadedState(this.carouselList, this.gridList, this.currentPage,
+      this.totalPages, this.isReachedEnd, this.carouselCurrentPage);
 
-  LoadedState copyWith(
-      {
-        List<Results>? gridList,
-        int? currentPage,
-        int? totalPages,
-        bool? isReachedEnd,
-        int? carouselCurrentPage}) {
+  LoadedState copyWith({
+     List<Results>? carouselList,
+    List<Results>? gridList,
+    int? currentPage,
+    int? totalPages,
+    bool? isReachedEnd,
+    int? carouselCurrentPage,
+  }) {
     return LoadedState(
-      posts,
-      gridList ?? this.gridList,
-      currentPage ?? this.currentPage,
-      totalPages ?? this.totalPages,
-      isReachedEnd ?? this.isReachedEnd,
-    );
+        carouselList ?? this.carouselList,
+        gridList ?? this.gridList,
+        currentPage ?? this.currentPage,
+        totalPages ?? this.totalPages,
+        isReachedEnd ?? this.isReachedEnd,
+        carouselCurrentPage ?? this.carouselCurrentPage);
   }
-    @override
-    List<Object?> get props => [posts,gridList,currentPage,totalPages,isReachedEnd];
 
+  @override
+  List<Object?> get props => [
+        carouselList,
+        gridList,
+        currentPage,
+        totalPages,
+        isReachedEnd,
+        carouselCurrentPage
+      ];
 }
 
 class ErrorState extends MovieState {

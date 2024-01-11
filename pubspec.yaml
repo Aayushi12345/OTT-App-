@@ -42,7 +42,6 @@ dependencies:
   auto_route: ^5.0.4
   get_it: ^7.6.4
   google_fonts: ^6.1.0
-  carousel_slider: ^4.2.1
   provider: ^6.1.1
 
 
