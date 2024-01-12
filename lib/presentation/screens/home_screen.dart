@@ -59,20 +59,6 @@ class HomeScreen extends StatelessWidget {
                                               ),
                                             )
                                           ],
-
-                                            // context: context,
-                                            // movie: state.carouselList![index],
-                                            // bannerWidget:
-                                            // SizedBox(
-                                            //     height: 280,
-                                            //     width: MediaQuery.of(context)
-                                            //         .size
-                                            //         .width,
-                                            //     child: Image.network(
-                                            //       "${Constant.IMAGE_BASE_URL}${state.carouselList![index].backdropPath ?? ''}",
-                                            //       fit: BoxFit.cover,
-                                            //     )),
-                                            // isGridView: false
                                         );
                                       }),
                                   Align(
@@ -111,7 +97,6 @@ class HomeScreen extends StatelessWidget {
                                 ]),
                               ),
                               GridView.builder(
-                                // controller: initScrollListener(context),
                                 physics: const NeverScrollableScrollPhysics(),
 
                                 shrinkWrap: true,
@@ -121,10 +106,8 @@ class HomeScreen extends StatelessWidget {
                                         crossAxisSpacing: 4.0,
                                         mainAxisSpacing: 4.0),
                                 itemCount: state.gridList!.length,
-                                // itemCount: state.gridList!.length,
                                 itemBuilder: (context, index) {
                                   Results movieResult = state.gridList![index];
-                                  // Results movieResult = state.posts.results![index];
                                   return Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Card(
