@@ -1,4 +1,5 @@
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ott_app/data/models/movie_model.dart';
@@ -8,7 +9,6 @@ import 'package:ott_app/logic/cubit/movie_state.dart';
 import 'package:ott_app/provider/favorite_provider.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
 import 'package:ott_app/utils/constant.dart';
-
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
@@ -110,73 +110,81 @@ class HomeScreen extends StatelessWidget {
                                   Results movieResult = state.gridList![index];
                                   return Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Card(
-                                          elevation: 50,
-                                          shadowColor: Colors.black,
-                                          color: Colors.greenAccent[100],
-                                          child: SizedBox(
-                                              width: 300,
-                                              height: 400,
-                                              child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Column(children: [
-                                                    Image.network(
-                                                      imageUrl +
-                                                          movieResult.posterPath
-                                                              .toString(),
-                                                      fit: BoxFit.fill,
-                                                      height: 100,
-                                                      width: 400,
-                                                    ),
-                                                    //NetworkImage
+                                      child: GestureDetector(
+                                        onTap: (){
+                                          context.router.push(DetailScreen(movie: movieResult));
 
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      // crossAxisAlignment:
-                                                      // CrossAxisAlignment.end,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Text(
-                                                            movieResult
-                                                                .originalTitle
+                                        },
+                                        child: Card(
+
+                                            elevation: 50,
+                                            shadowColor: Colors.black,
+                                            color: Colors.greenAccent[100],
+                                            child: SizedBox(
+                                                width: 300,
+                                                height: 400,
+                                                child: Padding(
+
+                                                    padding:
+                                                        const EdgeInsets.all(8.0),
+                                                    child: Column(children: [
+                                                      Image.network(
+                                                        imageUrl +
+                                                            movieResult.posterPath
                                                                 .toString(),
-                                                            maxLines: 2,
-                                                            style: TextStyle(
-                                                              fontSize: 15,
-                                                              color: Colors
-                                                                  .green[900],
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ), //Textstyle
+                                                        fit: BoxFit.fill,
+                                                        height: 100,
+                                                        width: 400,
+                                                      ),
+                                                      //NetworkImage
+
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        // crossAxisAlignment:
+                                                        // CrossAxisAlignment.end,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              movieResult
+                                                                  .originalTitle
+                                                                  .toString(),
+                                                              maxLines: 2,
+                                                              style: TextStyle(
+                                                                fontSize: 15,
+                                                                color: Colors
+                                                                    .green[900],
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ), //Textstyle
+                                                            ),
                                                           ),
-                                                        ),
-                                                        IconButton(
-                                                            onPressed: () {
-                                                              provider
-                                                                  .toggleFavorites(
-                                                                      movieResult);
-                                                            },
-                                                            // icon:
-                                                            icon: provider.isExist(
-                                                                    movieResult)
-                                                                ? const Icon(
-                                                                    Icons
-                                                                        .favorite,
-                                                                    color: Colors
-                                                                        .red)
-                                                                : const Icon(
-                                                                    Icons
-                                                                        .favorite,
-                                                                    color: Colors
-                                                                        .white))
-                                                      ],
-                                                    ),
-                                                    //Text
-                                                  ])))));
+                                                          IconButton(
+                                                              onPressed: () {
+                                                                provider
+                                                                    .toggleFavorites(
+                                                                        movieResult);
+                                                              },
+                                                              // icon:
+                                                              icon: provider.isExist(
+                                                                      movieResult)
+                                                                  ? const Icon(
+                                                                      Icons
+                                                                          .favorite,
+                                                                      color: Colors
+                                                                          .red)
+                                                                  : const Icon(
+                                                                      Icons
+                                                                          .favorite,
+                                                                      color: Colors
+                                                                          .white))
+                                                        ],
+                                                      ),
+                                                      //Text
+                                                    ])))),
+                                      ));
                                 },
                               ),
                               Padding(

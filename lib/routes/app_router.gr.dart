@@ -14,6 +14,7 @@
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
 
+import '../data/models/movie_model.dart' as _i6;
 import '../presentation/screens/detail_screen.dart' as _i2;
 import '../presentation/screens/Favorite_screen.dart' as _i3;
 import '../presentation/screens/home_screen.dart' as _i1;
@@ -38,8 +39,7 @@ class AppRouter extends _i4.RootStackRouter {
         routeData: routeData,
         child: _i2.DetailScreen(
           key: args.key,
-          name: args.name,
-          id: args.id,
+          movie: args.movie,
         ),
       );
     },
@@ -97,15 +97,13 @@ class HomeScreenArgs {
 class DetailScreen extends _i4.PageRouteInfo<DetailScreenArgs> {
   DetailScreen({
     _i5.Key? key,
-    required String name,
-    required int id,
+    required _i6.Results movie,
   }) : super(
           DetailScreen.name,
           path: '/detail-screen',
           args: DetailScreenArgs(
             key: key,
-            name: name,
-            id: id,
+            movie: movie,
           ),
         );
 
@@ -115,19 +113,16 @@ class DetailScreen extends _i4.PageRouteInfo<DetailScreenArgs> {
 class DetailScreenArgs {
   const DetailScreenArgs({
     this.key,
-    required this.name,
-    required this.id,
+    required this.movie,
   });
 
   final _i5.Key? key;
 
-  final String name;
-
-  final int id;
+  final _i6.Results movie;
 
   @override
   String toString() {
-    return 'DetailScreenArgs{key: $key, name: $name, id: $id}';
+    return 'DetailScreenArgs{key: $key, movie: $movie}';
   }
 }
 
