@@ -10,9 +10,14 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool passwordVisible = false;
+  String dropdownvalue = 'Male';
+
   final _formKey = GlobalKey<FormState>();
   var isLoading = false;
-
+  var items = [
+    'Male',
+    'Female',
+  ];
   void _submit() {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
@@ -122,7 +127,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               // Dob
-                Container(),
+              //   Container(
+              //     padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+              //     child: DOBInputField(
+              //       firstDate: DateTime(1900),
+              //       lastDate: DateTime.now(),
+              //       showLabel: true,
+              //       showCursor: true,
+              //       autovalidateMode: AutovalidateMode.always,
+              //       fieldLabelText: "With label",
+              //     ),
+              //   ),
+
                 Container(
                   decoration: BoxDecoration(color: Colors.white),
                   // padding: new EdgeInsets.all(20.0),
@@ -225,8 +241,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                 ),
+                // Female
+                Container(
+                  decoration: BoxDecoration(  borderRadius: BorderRadius.circular(15.0),
+                      border: Border.all()),
+                  child:  Padding(
+                    padding: const EdgeInsets.only(left: 15.0,top: 5,bottom: 5,right: 5),
+
+                    // padding: const EdgeInsets.all(5.0),
+                    child: DropdownButton(
+
+                      isExpanded: true,
+                      // Initial Value
+                      value: dropdownvalue,
+
+                      // Down Arrow Icon
+                      icon: const Icon(Icons.keyboard_arrow_down),
+
+                      // Array list of items
+                      items: items.map((String items) {
+                        return DropdownMenuItem(
+                          value: items,
+
+                          child: Text(items),
+                        );
+                      }).toList(),
+                      // After selecting the desired option,it will
+                      // change button value to selected value
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownvalue = newValue!;
+                        });
+                      },
+                    ),
+                  ),
+                ),
                 SizedBox(
                   child: Container(
+
+                    margin:EdgeInsets.only(top: 20, bottom: 20) ,
                     width: 300,
                     child: TextButton(
                       onPressed: () => _submit(),
@@ -235,18 +288,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           padding: EdgeInsets.all(16.0),
                           foregroundColor: Colors.black,
                           textStyle: TextStyle(fontSize: 20)),
-                      child: Text('   Login   '),
+                      child: Text('   Register   '),
                     ),
                   ),
                 ),
-                // Female
-                Container(),
+
                 Container(
                   child: GestureDetector(
                     onTap: (){
 
                     },
-                    child: Text("Register new Account"),
+                    child: Text("Login"),
                   ),
 
                 )
