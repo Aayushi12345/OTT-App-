@@ -2,14 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ott_app/routes/app_router.gr.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   bool passwordVisible = false;
   final _formKey = GlobalKey<FormState>();
   var isLoading = false;
@@ -30,10 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Login")),
+          title: const Center(child: Text("Sign-Up")),
         ),
         body: SafeArea(
           child: Padding(
@@ -41,9 +39,45 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Form(
               key: _formKey,
               child: Column(children: [
-                Image.asset(
-                  'assets/images/ott.png',
-                  height: 150,
+                Container(
+                  decoration: BoxDecoration(color: Colors.white),
+                  // padding: new EdgeInsets.all(20.0),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          textAlign: TextAlign.start,
+                          decoration: const InputDecoration(
+                            labelText: "Name",
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                            ),
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(),
+                          ),
+                          onFieldSubmitted: (value) {
+                            //Validator
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty ) {
+                              return 'Enter a name!';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Positioned(
+                        left: 10,
+                        top: 3,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 3),
+                          color: Colors.white,
+                          child: Text('Name'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(color: Colors.white),
@@ -87,6 +121,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
+              // Dob
+                Container(),
                 Container(
                   decoration: BoxDecoration(color: Colors.white),
                   // padding: new EdgeInsets.all(20.0),
@@ -138,6 +174,57 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
+                Container(
+                  decoration: BoxDecoration(color: Colors.white),
+                  // padding: new EdgeInsets.all(20.0),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 20, bottom: 20),
+                        child: TextFormField(
+                          obscureText: passwordVisible,
+                          textAlign: TextAlign.start,
+                          decoration: InputDecoration(
+                            labelText: "confirm Password",
+                            labelStyle: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(),
+                            suffixIcon: IconButton(
+                              icon: Icon(passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(
+                                      () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                          onFieldSubmitted: (value) {},
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter a valid password!';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Positioned(
+                        left: 10,
+                        top: 3,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 3),
+                          color: Colors.white,
+                          child: Text('Confirm Password'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   child: Container(
                     width: 300,
@@ -152,10 +239,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+                // Female
+                Container(),
                 Container(
                   child: GestureDetector(
                     onTap: (){
-                      context.router.push(const RegisterScreen());
 
                     },
                     child: Text("Register new Account"),
