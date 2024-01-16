@@ -50,10 +50,10 @@ class DetailScreen extends StatelessWidget {
                   ],
                 ),
               )),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
-              const Text("OverView",
+              const Text(Constant.OVERVIEW,
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 15.00,
@@ -67,7 +67,7 @@ class DetailScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Text("Release Date : ",
+                      const Text(Constant.RELEASE_DATE,
                           style:
                               TextStyle(color: Colors.black, fontSize: 18.00)),
                       Center(
@@ -81,7 +81,7 @@ class DetailScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const Text("Rating : ",
+                      const Text(Constant.RATING,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18.00,

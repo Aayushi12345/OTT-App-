@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:ott_app/di/service_locator_impl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ServiceLocator {
   void initialise();
@@ -58,6 +59,8 @@ abstract class ServiceLocator {
     Object? instance,
     String? instanceName,
   });
+
+
 }
 
 class TTNSL {

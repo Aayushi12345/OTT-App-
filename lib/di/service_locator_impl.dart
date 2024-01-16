@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:ott_app/di/service_locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ServiceLocatorImpl implements ServiceLocator {
   static final _serviceLocator = GetIt.instance;
@@ -107,5 +108,10 @@ class ServiceLocatorImpl implements ServiceLocator {
   }) {
     return _serviceLocator.isReadySync<T>(
         instance: instance, instanceName: instanceName);
+  }
+  Future<void> setupServiceLocator() async {
+    // Register services
+    final sharedPreferencesService = await SharedPreferences.getInstance();
+    _serviceLocator.registerSingleton(sharedPreferencesService);
   }
 }

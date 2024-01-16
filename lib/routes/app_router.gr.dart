@@ -81,11 +81,11 @@ class AppRouter extends _i6.RootStackRouter {
         ),
         _i6.RouteConfig(
           LoginScreen.name,
-          path: '/login-screen',
+          path: '/',
         ),
         _i6.RouteConfig(
           RegisterScreen.name,
-          path: '/',
+          path: '/register-screen',
         ),
       ];
 }
@@ -166,7 +166,7 @@ class LoginScreen extends _i6.PageRouteInfo<void> {
   const LoginScreen()
       : super(
           LoginScreen.name,
-          path: '/login-screen',
+          path: '/',
         );
 
   static const String name = 'LoginScreen';
@@ -178,7 +178,7 @@ class RegisterScreen extends _i6.PageRouteInfo<void> {
   const RegisterScreen()
       : super(
           RegisterScreen.name,
-          path: '/',
+          path: '/register-screen',
         );
 
   static const String name = 'RegisterScreen';

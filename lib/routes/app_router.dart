@@ -12,8 +12,8 @@ import 'package:ott_app/presentation/screens/login_screen.dart';
     AutoRoute(page:HomeScreen),
     AutoRoute(page: DetailScreen),
     AutoRoute(page: FavoriteScreen),
-    AutoRoute(page: LoginScreen),
-    AutoRoute(page: RegisterScreen,initial: true)
+    AutoRoute(page: LoginScreen,initial: true),
+    AutoRoute(page: RegisterScreen)
 
   ]
 )
