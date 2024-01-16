@@ -15,7 +15,7 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(movie.title.toString()),
+          title: Text("Detail"),
         ),
         body: SafeArea(
           child: Padding(
@@ -50,14 +50,84 @@ class DetailScreen extends StatelessWidget {
                   ],
                 ),
               )),
-              SizedBox(
-                height: 25,
+              const SizedBox(
+                width: 5,
               ),
-              const Text("OverView",
+              Text(movie.title.toString(),
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 15.00,
                       fontWeight: FontWeight.bold)),
+              SizedBox(
+                height: 25,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.no_adult_content,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Center(
+                        child: Text(movie.adult.toString(),
+                            style: const TextStyle(
+                                color: Colors.green,
+                                fontSize: 15.00,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.language,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Center(
+                        child: Text(movie.originalLanguage.toString(),
+                            style: const TextStyle(
+                                color: Colors.green,
+                                fontSize: 15.00,
+                                fontWeight: FontWeight.bold)),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.aspect_ratio,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Center(
+                        child: Text(movie.popularity.toString(),
+                            style: const TextStyle(
+                                color: Colors.green,
+                                fontSize: 15.00,
+                                fontWeight: FontWeight.bold)),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              // const Text("OverView",
+              //     style: TextStyle(
+              //         color: Colors.black,
+              //         fontSize: 15.00,
+              //         fontWeight: FontWeight.bold)),
               Text(movie.overview.toString()),
               const SizedBox(
                 height: 25,
@@ -93,6 +163,41 @@ class DetailScreen extends StatelessWidget {
                                 fontSize: 15.00,
                                 fontWeight: FontWeight.bold)),
                       )
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.perm_media_outlined,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Center(
+                        child: Text(movie.mediaType.toString(),
+                            style: const TextStyle(
+                                color: Colors.green,
+                                fontSize: 15.00,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Like"),
+                      IconButton(
+                          onPressed: () {},
+                          // icon:
+                          icon: const Icon(Icons.favorite, color: Colors.red))
                     ],
                   ),
                 ],

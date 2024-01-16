@@ -116,10 +116,9 @@ class HomeScreen extends StatelessWidget {
 
                                         },
                                         child: Card(
-
                                             elevation: 50,
                                             shadowColor: Colors.black,
-                                            color: Colors.greenAccent[100],
+                                            color: Colors.green[100],
                                             child: SizedBox(
                                                 width: 300,
                                                 height: 400,
