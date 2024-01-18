@@ -21,9 +21,8 @@ class AppRouter extends $AppRouter {
       page: BottomTabRoute.page,
       initial: true,
       children: [
-        AutoRoute(page: HomeRoute.page,children: [
-          AutoRoute(page: DetailRoute.page),
-        ]),
+        AutoRoute(page: HomeRoute.page,
+        ),
         AutoRoute(page: FavoriteRoute.page),
         AutoRoute(page: ProfileRoute.page),
 
@@ -32,6 +31,7 @@ class AppRouter extends $AppRouter {
     // AutoRoute(page: HomeRoute.page,initial: true),
       AutoRoute(page: LoginRoute.page),
   AutoRoute(page: RegisterRoute.page),
+    AutoRoute(page: DetailRoute.page),
   ];
 }
 

@@ -12,11 +12,23 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/man_avatar_male.png
+  AssetGenImage get manAvatarMale =>
+      const AssetGenImage('assets/images/man_avatar_male.png');
+
   /// File path: assets/images/ott.png
   AssetGenImage get ott => const AssetGenImage('assets/images/ott.png');
 
+  /// File path: assets/images/pen.png
+  AssetGenImage get pen => const AssetGenImage('assets/images/pen.png');
+
+  /// File path: assets/images/woman_female_avatar.png
+  AssetGenImage get womanFemaleAvatar =>
+      const AssetGenImage('assets/images/woman_female_avatar.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [ott];
+  List<AssetGenImage> get values =>
+      [manAvatarMale, ott, pen, womanFemaleAvatar];
 }
 
 class Assets {

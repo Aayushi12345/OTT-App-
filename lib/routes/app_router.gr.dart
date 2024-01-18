@@ -61,9 +61,11 @@ abstract class $AppRouter extends _i8.RootStackRouter {
       );
     },
     ProfileRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileRouteArgs>(
+          orElse: () => const ProfileRouteArgs());
       return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.ProfileScreen(),
+        child: _i6.ProfileScreen(key: args.key),
       );
     },
     RegisterRoute.name: (routeData) {
@@ -186,16 +188,31 @@ class LoginRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.ProfileScreen]
-class ProfileRoute extends _i8.PageRouteInfo<void> {
-  const ProfileRoute({List<_i8.PageRouteInfo>? children})
-      : super(
+class ProfileRoute extends _i8.PageRouteInfo<ProfileRouteArgs> {
+  ProfileRoute({
+    _i9.Key? key,
+    List<_i8.PageRouteInfo>? children,
+  }) : super(
           ProfileRoute.name,
+          args: ProfileRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'ProfileRoute';
 
-  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+  static const _i8.PageInfo<ProfileRouteArgs> page =
+      _i8.PageInfo<ProfileRouteArgs>(name);
+}
+
+class ProfileRouteArgs {
+  const ProfileRouteArgs({this.key});
+
+  final _i9.Key? key;
+
+  @override
+  String toString() {
+    return 'ProfileRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
