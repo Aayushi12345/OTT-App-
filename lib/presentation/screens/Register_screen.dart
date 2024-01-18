@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ott_app/data/models/user_model.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
-import 'package:ott_app/presentation/screens/login_screen.dart';
 import 'package:ott_app/utils/constant.dart';
-
+@RoutePage()
 class RegisterScreen extends StatefulWidget {
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -120,8 +119,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       .hasMatch(value)) {
                                 return Constant.ENTER_VALID_EMAIL;
                               }
-                              SharedPreferencesService.saveString(
-                                  Constant.EMAIL, value);
+                              UserResponse user = UserResponse();
+                              user.email = value;
+                              // user.email. =value
+                              // SharedPreferencesService.saveString(
+                              //     Constant.EMAIL, value);
                               return null;
                             },
                           ),

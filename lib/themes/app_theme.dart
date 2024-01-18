@@ -98,7 +98,7 @@ class AppTheme {
   static AppBarTheme _appBarThemeData(Brightness brightness) {
     return AppBarTheme(
         backgroundColor: AppColors.canvasColor[brightness],
-        iconTheme: IconThemeData(color: AppColors.primaryColor[brightness]),
+        iconTheme: IconThemeData(color: AppColors.grey6),
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarBrightness: brightness,
             statusBarIconBrightness: brightness == Brightness.dark

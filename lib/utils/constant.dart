@@ -38,6 +38,9 @@ class Constant{
   static const String OVERVIEW = "OverView";
   static const String RELEASE_DATE = "Release Date : ";
   static const String RATING = "  Rating : ";
+  static const String HOME = "Home";
+  static const String PROFILE = "Profile";
+  static const String FAVORITE = "Favorite";
 
 
 }

@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:ott_app/data/models/movie_model.dart';
 import 'package:ott_app/utils/constant.dart';
 
+@RoutePage()
 class DetailScreen extends StatelessWidget {
   final Results movie;
 

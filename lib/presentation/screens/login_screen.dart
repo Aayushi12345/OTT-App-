@@ -4,6 +4,7 @@ import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
 import 'package:ott_app/utils/constant.dart';
 
+@RoutePage()
 class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -28,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     if (password == passwordValue) {
       debugPrint(email);
-      context.router.push(HomeScreen());
+      context.router.push(HomeRoute());
     } else {
       var snackBar = const SnackBar(content: Text('Create A aacount'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -176,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     margin: EdgeInsets.only(top: 20),
                     child: GestureDetector(
                       onTap: () {
-                        context.router.push(const RegisterScreen());
+                        context.router.push(const RegisterRoute());
                       },
                       child: Text(Constant.REGISTER_NEW_ACCOUNT),
                     ),

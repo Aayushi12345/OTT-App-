@@ -1,43 +1,38 @@
-// **************************************************************************
-// AutoRouteGenerator
-// **************************************************************************
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// AutoRouterGenerator
 // **************************************************************************
-//
+
 // ignore_for_file: type=lint
+// coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:flutter/material.dart' as _i7;
+import 'package:auto_route/auto_route.dart' as _i8;
+import 'package:flutter/material.dart' as _i9;
+import 'package:ott_app/data/models/movie_model.dart' as _i10;
+import 'package:ott_app/presentation/screens/bottom_bar_screen.dart' as _i1;
+import 'package:ott_app/presentation/screens/detail_screen.dart' as _i2;
+import 'package:ott_app/presentation/screens/Favorite_screen.dart' as _i3;
+import 'package:ott_app/presentation/screens/home_screen.dart' as _i4;
+import 'package:ott_app/presentation/screens/login_screen.dart' as _i5;
+import 'package:ott_app/presentation/screens/profile_screen.dart' as _i6;
+import 'package:ott_app/presentation/screens/Register_screen.dart' as _i7;
 
-import '../data/models/movie_model.dart' as _i8;
-import '../presentation/screens/detail_screen.dart' as _i2;
-import '../presentation/screens/Favorite_screen.dart' as _i3;
-import '../presentation/screens/home_screen.dart' as _i1;
-import '../presentation/screens/login_screen.dart' as _i4;
-import '../presentation/screens/Register_screen.dart' as _i5;
-
-class AppRouter extends _i6.RootStackRouter {
-  AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+abstract class $AppRouter extends _i8.RootStackRouter {
+  $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i6.PageFactory> pagesMap = {
-    HomeScreen.name: (routeData) {
-      final args = routeData.argsAs<HomeScreenArgs>(
-          orElse: () => const HomeScreenArgs());
-      return _i6.MaterialPageX<dynamic>(
+  final Map<String, _i8.PageFactory> pagesMap = {
+    BottomTabRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.HomeScreen(key: args.key),
+        child: const _i1.BottomTabScreen(),
       );
     },
-    DetailScreen.name: (routeData) {
-      final args = routeData.argsAs<DetailScreenArgs>();
-      return _i6.MaterialPageX<dynamic>(
+    DetailRoute.name: (routeData) {
+      final args = routeData.argsAs<DetailRouteArgs>();
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.DetailScreen(
           key: args.key,
@@ -45,141 +40,174 @@ class AppRouter extends _i6.RootStackRouter {
         ),
       );
     },
-    FavoriteScreen.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+    FavoriteRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i3.FavoriteScreen(),
       );
     },
-    LoginScreen.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+    HomeRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.LoginScreen(),
+        child: _i4.HomeScreen(key: args.key),
       );
     },
-    RegisterScreen.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+    LoginRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.RegisterScreen(),
+        child: _i5.LoginScreen(),
+      );
+    },
+    ProfileRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i6.ProfileScreen(),
+      );
+    },
+    RegisterRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i7.RegisterScreen(),
       );
     },
   };
-
-  @override
-  List<_i6.RouteConfig> get routes => [
-        _i6.RouteConfig(
-          HomeScreen.name,
-          path: '/home-screen',
-        ),
-        _i6.RouteConfig(
-          DetailScreen.name,
-          path: '/detail-screen',
-        ),
-        _i6.RouteConfig(
-          FavoriteScreen.name,
-          path: '/favorite-screen',
-        ),
-        _i6.RouteConfig(
-          LoginScreen.name,
-          path: '/',
-        ),
-        _i6.RouteConfig(
-          RegisterScreen.name,
-          path: '/register-screen',
-        ),
-      ];
 }
 
 /// generated route for
-/// [_i1.HomeScreen]
-class HomeScreen extends _i6.PageRouteInfo<HomeScreenArgs> {
-  HomeScreen({_i7.Key? key})
+/// [_i1.BottomTabScreen]
+class BottomTabRoute extends _i8.PageRouteInfo<void> {
+  const BottomTabRoute({List<_i8.PageRouteInfo>? children})
       : super(
-          HomeScreen.name,
-          path: '/home-screen',
-          args: HomeScreenArgs(key: key),
+          BottomTabRoute.name,
+          initialChildren: children,
         );
 
-  static const String name = 'HomeScreen';
-}
+  static const String name = 'BottomTabRoute';
 
-class HomeScreenArgs {
-  const HomeScreenArgs({this.key});
-
-  final _i7.Key? key;
-
-  @override
-  String toString() {
-    return 'HomeScreenArgs{key: $key}';
-  }
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.DetailScreen]
-class DetailScreen extends _i6.PageRouteInfo<DetailScreenArgs> {
-  DetailScreen({
-    _i7.Key? key,
-    required _i8.Results movie,
+class DetailRoute extends _i8.PageRouteInfo<DetailRouteArgs> {
+  DetailRoute({
+    _i9.Key? key,
+    required _i10.Results movie,
+    List<_i8.PageRouteInfo>? children,
   }) : super(
-          DetailScreen.name,
-          path: '/detail-screen',
-          args: DetailScreenArgs(
+          DetailRoute.name,
+          args: DetailRouteArgs(
             key: key,
             movie: movie,
           ),
+          initialChildren: children,
         );
 
-  static const String name = 'DetailScreen';
+  static const String name = 'DetailRoute';
+
+  static const _i8.PageInfo<DetailRouteArgs> page =
+      _i8.PageInfo<DetailRouteArgs>(name);
 }
 
-class DetailScreenArgs {
-  const DetailScreenArgs({
+class DetailRouteArgs {
+  const DetailRouteArgs({
     this.key,
     required this.movie,
   });
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
-  final _i8.Results movie;
+  final _i10.Results movie;
 
   @override
   String toString() {
-    return 'DetailScreenArgs{key: $key, movie: $movie}';
+    return 'DetailRouteArgs{key: $key, movie: $movie}';
   }
 }
 
 /// generated route for
 /// [_i3.FavoriteScreen]
-class FavoriteScreen extends _i6.PageRouteInfo<void> {
-  const FavoriteScreen()
+class FavoriteRoute extends _i8.PageRouteInfo<void> {
+  const FavoriteRoute({List<_i8.PageRouteInfo>? children})
       : super(
-          FavoriteScreen.name,
-          path: '/favorite-screen',
+          FavoriteRoute.name,
+          initialChildren: children,
         );
 
-  static const String name = 'FavoriteScreen';
+  static const String name = 'FavoriteRoute';
+
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i4.LoginScreen]
-class LoginScreen extends _i6.PageRouteInfo<void> {
-  const LoginScreen()
-      : super(
-          LoginScreen.name,
-          path: '/',
+/// [_i4.HomeScreen]
+class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
+  HomeRoute({
+    _i9.Key? key,
+    List<_i8.PageRouteInfo>? children,
+  }) : super(
+          HomeRoute.name,
+          args: HomeRouteArgs(key: key),
+          initialChildren: children,
         );
 
-  static const String name = 'LoginScreen';
+  static const String name = 'HomeRoute';
+
+  static const _i8.PageInfo<HomeRouteArgs> page =
+      _i8.PageInfo<HomeRouteArgs>(name);
+}
+
+class HomeRouteArgs {
+  const HomeRouteArgs({this.key});
+
+  final _i9.Key? key;
+
+  @override
+  String toString() {
+    return 'HomeRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
-/// [_i5.RegisterScreen]
-class RegisterScreen extends _i6.PageRouteInfo<void> {
-  const RegisterScreen()
+/// [_i5.LoginScreen]
+class LoginRoute extends _i8.PageRouteInfo<void> {
+  const LoginRoute({List<_i8.PageRouteInfo>? children})
       : super(
-          RegisterScreen.name,
-          path: '/register-screen',
+          LoginRoute.name,
+          initialChildren: children,
         );
 
-  static const String name = 'RegisterScreen';
+  static const String name = 'LoginRoute';
+
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i6.ProfileScreen]
+class ProfileRoute extends _i8.PageRouteInfo<void> {
+  const ProfileRoute({List<_i8.PageRouteInfo>? children})
+      : super(
+          ProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileRoute';
+
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i7.RegisterScreen]
+class RegisterRoute extends _i8.PageRouteInfo<void> {
+  const RegisterRoute({List<_i8.PageRouteInfo>? children})
+      : super(
+          RegisterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisterRoute';
+
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }

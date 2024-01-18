@@ -1,23 +1,29 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ott_app/data/models/movie_model.dart';
 import 'package:ott_app/data/repositories%20/repository.dart';
 import 'package:ott_app/logic/cubit/movie_cubit.dart';
 import 'package:ott_app/logic/cubit/movie_state.dart';
-import 'package:ott_app/provider/favorite_provider.dart';
-import 'package:ott_app/routes/app_router.gr.dart';
 import 'package:ott_app/utils/constant.dart';
+
+import '../../routes/app_router.gr.dart';
+@RoutePage()
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+    HomeScreen({
+    Key? key,
+  }) : super(key: key);
+
+  // HomeScreen({super.key});
 
   String imageUrl = Constant.IMAGE_BASE_URL;
   final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    final provider = FavoriteProvider.of(context);
+    // final provider = FavoriteProvider.of(context);
     return BlocProvider<MovieCubit>(
         create: (context) => MovieCubit(Repository())..loadSecondPageOfMovie(),
         child: MaterialApp(
@@ -31,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                   return state is LoadedState
                       ? SingleChildScrollView(
                           controller: initScrollListener(context),
-                          padding: const EdgeInsets.only(bottom: 16),
+                          padding:  EdgeInsets.only(bottom: 16),
                           child: Column(
                             children: [
                               SizedBox(
@@ -65,23 +71,23 @@ class HomeScreen extends StatelessWidget {
                                     alignment: Alignment.bottomCenter,
                                     child: Container(
                                       height: 120,
-                                      margin: const EdgeInsets.only(bottom: 20),
+                                      margin:  EdgeInsets.only(bottom: 20),
                                       child: ListView.builder(
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) {
                                           return Padding(
-                                            padding: const EdgeInsets.all(5),
+                                            padding:  EdgeInsets.all(5),
                                             child: SizedBox(
                                                 height: 10,
                                                 child:
                                                     state.carouselCurrentPage ==
                                                             index
-                                                        ? const Icon(
+                                                        ?  const Icon(
                                                             Icons.circle,
                                                             size: 8,
                                                             color: Colors.white,
                                                           )
-                                                        : const Icon(
+                                                        :  const Icon(
                                                             Icons
                                                                 .circle_outlined,
                                                             size: 8,
@@ -97,11 +103,11 @@ class HomeScreen extends StatelessWidget {
                                 ]),
                               ),
                               GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
+                                physics:  const NeverScrollableScrollPhysics(),
 
                                 shrinkWrap: true,
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         crossAxisSpacing: 4.0,
                                         mainAxisSpacing: 4.0),
@@ -109,14 +115,12 @@ class HomeScreen extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   Results movieResult = state.gridList![index];
                                   return Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding:  EdgeInsets.all(8.0),
                                       child: GestureDetector(
                                         onTap: (){
-                                          context.router.push(DetailScreen(movie: movieResult));
-
-                                        },
+                                          context.router.push(DetailRoute(movie: movieResult));
+                                          },
                                         child: Card(
-
                                             elevation: 50,
                                             shadowColor: Colors.black,
                                             color: Colors.greenAccent[100],
@@ -126,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                                                 child: Padding(
 
                                                     padding:
-                                                        const EdgeInsets.all(8.0),
+                                                         EdgeInsets.all(8.0),
                                                     child: Column(children: [
                                                       Image.network(
                                                         imageUrl +
@@ -163,23 +167,24 @@ class HomeScreen extends StatelessWidget {
                                                           ),
                                                           IconButton(
                                                               onPressed: () {
-                                                                provider
-                                                                    .toggleFavorites(
-                                                                        movieResult);
+                                                                // provider
+                                                                //     .toggleFavorites(
+                                                                //         movieResult);
                                                               },
-                                                              // icon:
-                                                              icon: provider.isExist(
-                                                                      movieResult)
-                                                                  ? const Icon(
+                                                              icon:
+                                                              // icon: provider.isExist(
+                                                              //         movieResult)
+                                                                   Icon(
                                                                       Icons
                                                                           .favorite,
                                                                       color: Colors
                                                                           .red)
-                                                                  : const Icon(
-                                                                      Icons
-                                                                          .favorite,
-                                                                      color: Colors
-                                                                          .white))
+                                                                  // :  Icon(
+                                                                  //     Icons
+                                                                  //         .favorite,
+                                                                  //     color: Colors
+                                                                  //         .white)
+                                      )
                                                         ],
                                                       ),
                                                       //Text
@@ -188,9 +193,9 @@ class HomeScreen extends StatelessWidget {
                                 },
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 16),
+                                padding:  EdgeInsets.only(bottom: 16),
                                 child: state.isReachedEnd
-                                    ? const CircularProgressIndicator()
+                                    ?  CircularProgressIndicator()
                                     : Container(),
                               )
                             ],
@@ -199,7 +204,7 @@ class HomeScreen extends StatelessWidget {
                       : state is LoadingState
                           ? CircularProgressIndicator()
                           : state is ErrorState
-                              ? const Column()
+                              ?  Column()
                               : Container();
                 }))));
   }
