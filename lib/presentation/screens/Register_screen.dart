@@ -121,6 +121,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               }
                               UserResponse user = UserResponse();
                               user.email = value;
+                              SharedPreferencesService.saveString(
+                                  Constant.EMAIL, value);
                               // user.email. =value
                               // SharedPreferencesService.saveString(
                               //     Constant.EMAIL, value);

@@ -1,9 +1,10 @@
 class UserResponse  {
-  final String? name;
+  late String? name;
   late String? email;
-  final String? password;
-  final String? dob;
-  final String? gendar;
+  late String? password;
+  late String? dob;
+  late String? gendar;
+  late String? imgUrl;
 
    UserResponse({
      this.name,
@@ -11,6 +12,7 @@ class UserResponse  {
      this.password,
     this.dob,
     this.gendar,
+     this.imgUrl,
   });
 }
 
