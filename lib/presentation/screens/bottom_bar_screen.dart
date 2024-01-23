@@ -12,7 +12,7 @@ class BottomTabScreen extends StatelessWidget {
       routes:  [
         HomeRoute(),
         FavoriteRoute(),
-        ProfileRoute()
+        ProfileAccountRoute()
       ],
 
       builder: (context, child) {

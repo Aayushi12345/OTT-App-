@@ -181,6 +181,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Text(Constant.REGISTER_NEW_ACCOUNT),
                     ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: GestureDetector(
+                      onTap: () {
+                        context.router.push( HomeRoute());
+                      },
+                      child: Text("SKip"),
+                    ),
                   )
                 ]),
               ),

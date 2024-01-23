@@ -16,6 +16,7 @@ class MovieCubit extends Cubit<MovieState> {
   void loadSecondPageOfMovie() {
     loadMoviesData(1);
   }
+
   Future<void> loadMoviesData(int pageNo) async {
     try {
       if (pageNo == 1) {

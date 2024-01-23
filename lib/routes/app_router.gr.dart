@@ -8,31 +8,33 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i8;
-import 'package:flutter/material.dart' as _i9;
-import 'package:ott_app/data/models/movie_model.dart' as _i10;
+import 'package:auto_route/auto_route.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
+import 'package:ott_app/data/models/movie_model.dart' as _i11;
 import 'package:ott_app/presentation/screens/bottom_bar_screen.dart' as _i1;
 import 'package:ott_app/presentation/screens/detail_screen.dart' as _i2;
-import 'package:ott_app/presentation/screens/Favorite_screen.dart' as _i3;
-import 'package:ott_app/presentation/screens/home_screen.dart' as _i4;
-import 'package:ott_app/presentation/screens/login_screen.dart' as _i5;
-import 'package:ott_app/presentation/screens/profile_screen.dart' as _i6;
-import 'package:ott_app/presentation/screens/Register_screen.dart' as _i7;
+import 'package:ott_app/presentation/screens/edit_Email_screen.dart' as _i3;
+import 'package:ott_app/presentation/screens/Favorite_screen.dart' as _i4;
+import 'package:ott_app/presentation/screens/home_screen.dart' as _i5;
+import 'package:ott_app/presentation/screens/login_screen.dart' as _i6;
+import 'package:ott_app/presentation/screens/profile_account_screen.dart'
+    as _i7;
+import 'package:ott_app/presentation/screens/Register_screen.dart' as _i8;
 
-abstract class $AppRouter extends _i8.RootStackRouter {
+abstract class $AppRouter extends _i9.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i8.PageFactory> pagesMap = {
+  final Map<String, _i9.PageFactory> pagesMap = {
     BottomTabRoute.name: (routeData) {
-      return _i8.AutoRoutePage<dynamic>(
+      return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.BottomTabScreen(),
       );
     },
     DetailRoute.name: (routeData) {
       final args = routeData.argsAs<DetailRouteArgs>();
-      return _i8.AutoRoutePage<dynamic>(
+      return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.DetailScreen(
           key: args.key,
@@ -40,38 +42,42 @@ abstract class $AppRouter extends _i8.RootStackRouter {
         ),
       );
     },
-    FavoriteRoute.name: (routeData) {
-      return _i8.AutoRoutePage<dynamic>(
+    EditEmailRoute.name: (routeData) {
+      return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.FavoriteScreen(),
+        child: _i3.EditEmailScreen(),
+      );
+    },
+    FavoriteRoute.name: (routeData) {
+      return _i9.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i4.FavoriteScreen(),
       );
     },
     HomeRoute.name: (routeData) {
       final args =
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
-      return _i8.AutoRoutePage<dynamic>(
+      return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.HomeScreen(key: args.key),
+        child: _i5.HomeScreen(key: args.key),
       );
     },
     LoginRoute.name: (routeData) {
-      return _i8.AutoRoutePage<dynamic>(
+      return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.LoginScreen(),
+        child: _i6.LoginScreen(),
       );
     },
-    ProfileRoute.name: (routeData) {
-      final args = routeData.argsAs<ProfileRouteArgs>(
-          orElse: () => const ProfileRouteArgs());
-      return _i8.AutoRoutePage<dynamic>(
+    ProfileAccountRoute.name: (routeData) {
+      return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i6.ProfileScreen(key: args.key),
+        child: const _i7.ProfileAccountScreen(),
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i8.AutoRoutePage<dynamic>(
+      return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i7.RegisterScreen(),
+        child: _i8.RegisterScreen(),
       );
     },
   };
@@ -79,8 +85,8 @@ abstract class $AppRouter extends _i8.RootStackRouter {
 
 /// generated route for
 /// [_i1.BottomTabScreen]
-class BottomTabRoute extends _i8.PageRouteInfo<void> {
-  const BottomTabRoute({List<_i8.PageRouteInfo>? children})
+class BottomTabRoute extends _i9.PageRouteInfo<void> {
+  const BottomTabRoute({List<_i9.PageRouteInfo>? children})
       : super(
           BottomTabRoute.name,
           initialChildren: children,
@@ -88,16 +94,16 @@ class BottomTabRoute extends _i8.PageRouteInfo<void> {
 
   static const String name = 'BottomTabRoute';
 
-  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.DetailScreen]
-class DetailRoute extends _i8.PageRouteInfo<DetailRouteArgs> {
+class DetailRoute extends _i9.PageRouteInfo<DetailRouteArgs> {
   DetailRoute({
-    _i9.Key? key,
-    required _i10.Results movie,
-    List<_i8.PageRouteInfo>? children,
+    _i10.Key? key,
+    required _i11.Results movie,
+    List<_i9.PageRouteInfo>? children,
   }) : super(
           DetailRoute.name,
           args: DetailRouteArgs(
@@ -109,8 +115,8 @@ class DetailRoute extends _i8.PageRouteInfo<DetailRouteArgs> {
 
   static const String name = 'DetailRoute';
 
-  static const _i8.PageInfo<DetailRouteArgs> page =
-      _i8.PageInfo<DetailRouteArgs>(name);
+  static const _i9.PageInfo<DetailRouteArgs> page =
+      _i9.PageInfo<DetailRouteArgs>(name);
 }
 
 class DetailRouteArgs {
@@ -119,9 +125,9 @@ class DetailRouteArgs {
     required this.movie,
   });
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
-  final _i10.Results movie;
+  final _i11.Results movie;
 
   @override
   String toString() {
@@ -130,9 +136,23 @@ class DetailRouteArgs {
 }
 
 /// generated route for
-/// [_i3.FavoriteScreen]
-class FavoriteRoute extends _i8.PageRouteInfo<void> {
-  const FavoriteRoute({List<_i8.PageRouteInfo>? children})
+/// [_i3.EditEmailScreen]
+class EditEmailRoute extends _i9.PageRouteInfo<void> {
+  const EditEmailRoute({List<_i9.PageRouteInfo>? children})
+      : super(
+          EditEmailRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EditEmailRoute';
+
+  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i4.FavoriteScreen]
+class FavoriteRoute extends _i9.PageRouteInfo<void> {
+  const FavoriteRoute({List<_i9.PageRouteInfo>? children})
       : super(
           FavoriteRoute.name,
           initialChildren: children,
@@ -140,15 +160,15 @@ class FavoriteRoute extends _i8.PageRouteInfo<void> {
 
   static const String name = 'FavoriteRoute';
 
-  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i4.HomeScreen]
-class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
+/// [_i5.HomeScreen]
+class HomeRoute extends _i9.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    _i9.Key? key,
-    List<_i8.PageRouteInfo>? children,
+    _i10.Key? key,
+    List<_i9.PageRouteInfo>? children,
   }) : super(
           HomeRoute.name,
           args: HomeRouteArgs(key: key),
@@ -157,14 +177,14 @@ class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
 
   static const String name = 'HomeRoute';
 
-  static const _i8.PageInfo<HomeRouteArgs> page =
-      _i8.PageInfo<HomeRouteArgs>(name);
+  static const _i9.PageInfo<HomeRouteArgs> page =
+      _i9.PageInfo<HomeRouteArgs>(name);
 }
 
 class HomeRouteArgs {
   const HomeRouteArgs({this.key});
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   @override
   String toString() {
@@ -173,9 +193,9 @@ class HomeRouteArgs {
 }
 
 /// generated route for
-/// [_i5.LoginScreen]
-class LoginRoute extends _i8.PageRouteInfo<void> {
-  const LoginRoute({List<_i8.PageRouteInfo>? children})
+/// [_i6.LoginScreen]
+class LoginRoute extends _i9.PageRouteInfo<void> {
+  const LoginRoute({List<_i9.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           initialChildren: children,
@@ -183,42 +203,27 @@ class LoginRoute extends _i8.PageRouteInfo<void> {
 
   static const String name = 'LoginRoute';
 
-  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i6.ProfileScreen]
-class ProfileRoute extends _i8.PageRouteInfo<ProfileRouteArgs> {
-  ProfileRoute({
-    _i9.Key? key,
-    List<_i8.PageRouteInfo>? children,
-  }) : super(
-          ProfileRoute.name,
-          args: ProfileRouteArgs(key: key),
+/// [_i7.ProfileAccountScreen]
+class ProfileAccountRoute extends _i9.PageRouteInfo<void> {
+  const ProfileAccountRoute({List<_i9.PageRouteInfo>? children})
+      : super(
+          ProfileAccountRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'ProfileRoute';
+  static const String name = 'ProfileAccountRoute';
 
-  static const _i8.PageInfo<ProfileRouteArgs> page =
-      _i8.PageInfo<ProfileRouteArgs>(name);
-}
-
-class ProfileRouteArgs {
-  const ProfileRouteArgs({this.key});
-
-  final _i9.Key? key;
-
-  @override
-  String toString() {
-    return 'ProfileRouteArgs{key: $key}';
-  }
+  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i7.RegisterScreen]
-class RegisterRoute extends _i8.PageRouteInfo<void> {
-  const RegisterRoute({List<_i8.PageRouteInfo>? children})
+/// [_i8.RegisterScreen]
+class RegisterRoute extends _i9.PageRouteInfo<void> {
+  const RegisterRoute({List<_i9.PageRouteInfo>? children})
       : super(
           RegisterRoute.name,
           initialChildren: children,
@@ -226,5 +231,5 @@ class RegisterRoute extends _i8.PageRouteInfo<void> {
 
   static const String name = 'RegisterRoute';
 
-  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }
