@@ -42,8 +42,7 @@ class Results extends Equatable{
   String? originalTitle;
   @JsonKey(name: "media_type")
   String? mediaType;
-  @JsonKey(name: "genre_ids")
-  List<int>? genreIds;
+
   double? popularity;
   @JsonKey(name: "release_date")
   String? releaseDate;
@@ -52,6 +51,7 @@ class Results extends Equatable{
   double? voteAverage;
   @JsonKey(name: "vote_count")
   int? voteCount;
+  bool? isFavourite;
 
   Results(
       {this.adult,
@@ -63,16 +63,37 @@ class Results extends Equatable{
       this.overview,
       this.posterPath,
       this.mediaType,
-      this.genreIds,
       this.popularity,
       this.releaseDate,
       this.video,
       this.voteAverage,
-      this.voteCount});
+      this.voteCount,
+      this.isFavourite});
 
   factory Results.fromJson(Map<String, dynamic> map) => _$ResultsFromJson(map);
+  // Map<String, dynamic> toJson() => _$ResultsToJson(this);
+  Map<String, dynamic> toJson() => _$ResultsToJson(this);
+
+  @override
+  String toString() {
+    return 'Results{'
+        'id: $id, '
+        'title: $title, '
+        'overview: $overview, '
+        'backdrop_path: $posterPath, '
+        'adult: $adult, '
+        'originalLanguage: $originalLanguage, '
+        'backdropPath: $backdropPath, '
+        'releaseDate: $releaseDate, '
+        'voteCount: $voteCount, '
+        'isFavourite: $isFavourite '
+        '}';
+  }
+  String getContentRating() {
+    return adult! ? "A" : "U/A";
+  }
 
   @override
   List<Object?> get props => [adult,backdropPath,id,title,originalLanguage,originalTitle,overview,
-    posterPath,mediaType,genreIds,popularity,releaseDate,video,voteAverage,voteCount];
+    posterPath,mediaType,popularity,releaseDate,video,voteAverage,voteCount];
 }

@@ -12,7 +12,7 @@ class EditEmailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     void _submit() async {
-      SharedPreferencesService.saveString(
+      SharedPreferencesService.saveSingleString(
           Constant.EMAIL, _nameEditingController.text);
       final isValid = _formKey.currentState!.validate();
       if (!isValid) {

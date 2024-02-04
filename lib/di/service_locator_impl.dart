@@ -109,4 +109,12 @@ class ServiceLocatorImpl implements ServiceLocator {
         instance: instance, instanceName: instanceName);
   }
 
+  @override
+  void registerSingletonAsync<T extends Object>(FactoryFuncAsync<T> factoryFunc, {String? instanceName, Iterable<Type>? dependsOn, bool? signalsReady, DisposingFunc<T>? dispose}) {
+    _serviceLocator.registerSingletonAsync<T>(factoryFunc,
+        instanceName: instanceName,
+        dependsOn: dependsOn,
+        signalsReady: signalsReady,
+        dispose: dispose);
+  }
 }

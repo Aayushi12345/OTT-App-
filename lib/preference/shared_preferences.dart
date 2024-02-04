@@ -1,139 +1,165 @@
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
-const String _kThemeColorKey = 'theme_color';
-const String _kttnKey = 'ttn';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
 
-  static Future<bool> saveBool(String key, bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(key, value);
+  static SharedPreferencesService? _instance;
+  static SharedPreferences? _preferences;
+
+  SharedPreferencesService._();
+
+  static Future<void> _init() async {
+    _preferences = await SharedPreferences.getInstance();
   }
 
-  // Saves an integer value with the given key to SharedPreferences
-  static Future<bool> saveInt(String key, int value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setInt(key, value);
+  static Future<SharedPreferencesService> getInstance() async {
+    _instance ??=
+        SharedPreferencesService._(); // Change here: Initialize if null
+    await _init(); // Move the initialization inside getInstance method
+    return _instance!; // Change here: Add a non-null assertion
   }
 
-  // Saves a double value with the given key to SharedPreferences
-  static Future<bool> saveDouble(String key, double value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setDouble(key, value);
+  // Save and retrieve String
+  String getString(String key, {required String defaultValue}) {
+    return _preferences?.getString(key) ?? defaultValue;
   }
 
-  // Saves a string value with the given key to SharedPreferences
-  static Future<bool> saveString(String key, String value) async {
+  Future<void> saveString(String key, String value) async {
+    await _preferences?.setString(key, value);
+  }
+
+  // Save and retrieve JSON using a model
+  T? getObject<T>(String key, T Function(Map<String, dynamic>) fromJson) {
+    final jsonString = _preferences?.getString(key);
+    if (jsonString != null) {
+      final Map<String, dynamic> jsonMap = json.decode(jsonString);
+      return fromJson(jsonMap);
+    }
+    return null;
+  }
+
+  Future<void> saveObject(String key, dynamic object) async {
+    final jsonString = json.encode(object.toJson());
+    await _preferences?.setString(key, jsonString);
+  }
+
+  // Save and retrieve a list of JSON using a model
+  List<T> getList<T>(String key, T Function(Map<String, dynamic>) fromJson) {
+    final jsonStringList = _preferences?.getStringList(key);
+    if (jsonStringList != null) {
+      return jsonStringList.map((jsonString) {
+        final Map<String, dynamic> jsonMap = json.decode(jsonString);
+        return fromJson(jsonMap);
+      }).toList();
+    }
+    return [];
+  }
+
+  Future<void> saveList(String key, List<dynamic> list) async {
+    final jsonStringList = list.map((item) => json.encode(item)).toList();
+    await _preferences?.setStringList(key, jsonStringList);
+  }
+
+  // Remove a list from SharedPreferences
+  Future<void> removeList(String key) async {
+    await _preferences?.remove(key);
+  }
+
+  static Future<bool> saveSingleString(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
   }
 
-  // Saves a list of strings with the given key to SharedPreferences
-  static Future<bool> saveStringList(String key, List<String> value) async {
+  static Future<String> getSingleString(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.setStringList(key, value);
+    return prefs.getString(key)!;
   }
-
-  // Retrieves a boolean value with the given key from SharedPreferences
-  static Future<bool?> getBool(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(key);
-  }
-
-  // Retrieves an integer value with the given key from SharedPreferences
-  static Future<int?> getInt(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(key);
-  }
-
-  // Retrieves a double value with the given key from SharedPreferences
-  static Future<double?> getDouble(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble(key);
-  }
-
-  // Retrieves a string value with the given key from SharedPreferences
-  static Future<String?> getString(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key);
-  }
-
-  // Retrieves a list of strings with the given key from SharedPreferences
-  static Future<List<String>?> getStringList(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getStringList(key);
-  }
-
-
-  // Removing data from SharedPreferences
-  static Future<void> removeData(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(key);
-  }
-
-// Clearing all data from SharedPreferences
-  static Future<void> clearData() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-  }
-
-
-
-
-
-
 }
 
-//   static SharedPreferencesService? _instance;
-//   static late SharedPreferences _preferences;
-//   // SharedPreferencesService() {
-//   //   SharedPreferencesService();
+
+
+// class SharedPreferencesService {
+//
+//   static Future<bool> saveBool(String key, bool value) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.setBool(key, value);
+//   }
+//
+//   // Saves an integer value with the given key to SharedPreferences
+//   static Future<bool> saveInt(String key, int value) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.setInt(key, value);
+//   }
+//
+//   // Saves a double value with the given key to SharedPreferences
+//   static Future<bool> saveDouble(String key, double value) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.setDouble(key, value);
+//   }
+//
+//   // Saves a string value with the given key to SharedPreferences
+//   static Future<bool> saveString(String key, String value) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.setString(key, value);
+//   }
+//   // static Future<void> clearData() async {
+//   //   final prefs = await SharedPreferences.getInstance();
+//   //   await prefs.clear();
 //   // }
-//
-//
-//   SharedPreferencesService._();
-//
-//   // Using a singleton pattern
-//   static Future<SharedPreferencesService> getInstance() async {
-//     _instance ??= SharedPreferencesService._();
-//
-//     _preferences = await SharedPreferences.getInstance();
-//
-//     return _instance!;
-//   }
-//   int get ttnValue => _getData(_kttnKey) ?? 0;
-//   set ttnValue(int value) => _saveData(_kttnKey, value);
-//   // Persist and retrieve theme color
-//   Color get themeColor => Color(_getData(_kThemeColorKey) ?? Colors.blue.value);
-//   set themeColor(Color value) => _saveData(_kThemeColorKey, value.value);
-//
-//   dynamic _getData(String key) {
-//     // Retrieve data from shared preferences
-//     var value = _preferences.get(key);
-//
-//     // Easily log the data that we retrieve from shared preferences
-//     debugPrint('Retrieved $key: $value');
-//
-//     // Return the data that we retrieve from shared preferences
-//     return value;
+//   // Saves a list of strings with the given key to SharedPreferences
+//   static Future<bool> saveStringList(String key, List<String> value) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.setStringList(key, value);
 //   }
 //
-//   void _saveData(String key, dynamic value) {
-//     // Easily log the data that we save to shared preferences
-//     debugPrint('Saving $key: $value');
-//
-//     // Save data to shared preferences
-//     if (value is String) {
-//       _preferences.setString(key, value);
-//     } else if (value is int) {
-//       _preferences.setInt(key, value);
-//     } else if (value is double) {
-//       _preferences.setDouble(key, value);
-//     } else if (value is bool) {
-//       _preferences.setBool(key, value);
-//     } else if (value is List<String>) {
-//       _preferences.setStringList(key, value);
-//     }
+//   // Retrieves a boolean value with the given key from SharedPreferences
+//   static Future<bool?> getBool(String key) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.getBool(key);
 //   }
+//
+//   // Retrieves an integer value with the given key from SharedPreferences
+//   static Future<int?> getInt(String key) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.getInt(key);
+//   }
+//
+//   // Retrieves a double value with the given key from SharedPreferences
+//   static Future<double?> getDouble(String key) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.getDouble(key);
+//   }
+//
+//   // Retrieves a string value with the given key from SharedPreferences
+//   static Future<String> getString(String key) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.getString(key)!;
+//   }
+//
+//   // Retrieves a list of strings with the given key from SharedPreferences
+//   static Future<List<String>?> getStringList(String key) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     return prefs.getStringList(key);
+//   }
+//
+//
+//   // Removing data from SharedPreferences
+//   static Future<void> removeData(String key) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     await prefs.remove(key);
+//   }
+//
+// // Clearing all data from SharedPreferences
+//   static Future<void> clearData() async {
+//     final prefs = await SharedPreferences.getInstance();
+//     await prefs.clear();
+//   }
+//
+//
+//
+//
+//
+//
 // }
+

@@ -26,14 +26,14 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
 
   MyUserData() async {
     user.imgUrl = "assets/images/woman_female_avatar.png";
-    String? email = await SharedPreferencesService.getString(Constant.EMAIL);
+    String? email = await SharedPreferencesService.getSingleString(Constant.EMAIL);
     debugPrint(email);
 
-    String? name = await SharedPreferencesService.getString(Constant.NAME);
+    String? name = await SharedPreferencesService.getSingleString(Constant.NAME);
     String? password =
-        await SharedPreferencesService.getString(Constant.PASSWORD);
-    String? gendar = await SharedPreferencesService.getString(Constant.GENDAR);
-    String? dob = await SharedPreferencesService.getString(Constant.DOB);
+        await SharedPreferencesService.getSingleString(Constant.PASSWORD);
+    String? gendar = await SharedPreferencesService.getSingleString(Constant.GENDAR);
+    String? dob = await SharedPreferencesService.getSingleString(Constant.DOB);
 
     user.email = email;
     user.name = name;
@@ -49,7 +49,7 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
   void getData(String updatedEmail)  {
     setState(() async {
       debugPrint("mnbvc" + updatedEmail.toString());
-      String? email = await SharedPreferencesService.getString(Constant.EMAIL);
+      String? email = await SharedPreferencesService.getSingleString(Constant.EMAIL);
 
       user.email = email;
     });

@@ -20,9 +20,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void _submit() async {
     final isValid = _formKey.currentState!.validate();
     String? emailValue =
-        await SharedPreferencesService.getString(Constant.EMAIL);
+        await SharedPreferencesService.getSingleString(Constant.EMAIL);
     String? passwordValue =
-        await SharedPreferencesService.getString(Constant.PASSWORD);
+        await SharedPreferencesService.getSingleString(Constant.PASSWORD);
 
     if (!isValid) {
       return;

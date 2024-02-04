@@ -4,38 +4,42 @@ import 'package:equatable/equatable.dart';
 abstract class MovieState extends Equatable {}
 
 class LoadingState extends MovieState {
-
   @override
   List<Object?> get props => [];
-
 }
 
 class LoadedState extends MovieState {
   final List<Results>? carouselList;
   final List<Results>? gridList;
-  final int currentPage;
-  final int totalPages;
-  final bool isReachedEnd;
+  final int? currentPage;
+  final int? totalPages;
+  final bool? isReachedEnd;
   final int? carouselCurrentPage;
 
-  LoadedState(this.carouselList, this.gridList, this.currentPage,
-      this.totalPages, this.isReachedEnd, this.carouselCurrentPage);
+  LoadedState({
+    this.carouselList,
+    this.gridList,
+    this.currentPage,
+    this.totalPages,
+    this.isReachedEnd,
+    this.carouselCurrentPage,
+  });
 
   LoadedState copyWith({
-     List<Results>? carouselList,
-    List<Results>? gridList,
-    int? currentPage,
-    int? totalPages,
-    bool? isReachedEnd,
-    int? carouselCurrentPage,
+   final List<Results>? carouselList,
+    final List<Results>? gridList,
+    final   int? currentPage,
+    final  int? totalPages,
+    final bool? isReachedEnd,
+    final  int? carouselCurrentPage,
   }) {
     return LoadedState(
-        carouselList ?? this.carouselList,
-        gridList ?? this.gridList,
-        currentPage ?? this.currentPage,
-        totalPages ?? this.totalPages,
-        isReachedEnd ?? this.isReachedEnd,
-        carouselCurrentPage ?? this.carouselCurrentPage);
+        carouselList: carouselList ?? this.carouselList,
+        gridList: gridList ?? this.gridList,
+        currentPage: currentPage ?? this.currentPage,
+        totalPages: totalPages ?? this.totalPages,
+        isReachedEnd: isReachedEnd ?? this.isReachedEnd,
+        carouselCurrentPage: carouselCurrentPage ?? this.carouselCurrentPage);
   }
 
   @override

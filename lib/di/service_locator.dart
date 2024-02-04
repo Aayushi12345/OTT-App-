@@ -13,6 +13,13 @@ abstract class ServiceLocator {
     String? instanceName,
     DisposingFunc<T>? dispose,
   });
+  void registerSingletonAsync<T extends Object>(
+      FactoryFuncAsync<T> factoryFunc, {
+        String? instanceName,
+        Iterable<Type>? dependsOn,
+        bool? signalsReady,
+        DisposingFunc<T>? dispose,
+      });
 
   void registerLazySingletonAsync<T extends Object>(
     FactoryFuncAsync<T> factoryFunc, {

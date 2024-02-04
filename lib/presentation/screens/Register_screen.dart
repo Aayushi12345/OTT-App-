@@ -22,7 +22,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   ];
 
   void _submit() async {
-    String? retrievedValue = await SharedPreferencesService.getString(Constant.EMAIL);
+    String? retrievedValue = await SharedPreferencesService.getSingleString(Constant.EMAIL);
     debugPrint(retrievedValue);
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
@@ -75,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return Constant.ENTER_VALID_NAME;
                               }
-                              SharedPreferencesService.saveString(
+                              SharedPreferencesService.saveSingleString(
                                   Constant.NAME, value);
                               return null;
                             },
@@ -121,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               }
                               UserResponse user = UserResponse();
                               user.email = value;
-                              SharedPreferencesService.saveString(
+                              SharedPreferencesService.saveSingleString(
                                   Constant.EMAIL, value);
                               // user.email. =value
                               // SharedPreferencesService.saveString(
@@ -166,7 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return Constant.ENTER_VALID_DOB;
                               }
-                              SharedPreferencesService.saveString(
+                              SharedPreferencesService.saveSingleString(
                                   Constant.DOB, value);
                               return null;
                             },
@@ -219,7 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return Constant.ENTER_VALID_PASSWORD;
                               }
-                              SharedPreferencesService.saveString(
+                              SharedPreferencesService.saveSingleString(
                                   Constant.PASSWORD, value);
                               return null;
                             },
@@ -319,7 +319,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onChanged: (String? newValue) {
                           setState(() {
                             dropdownvalue = newValue!;
-                            SharedPreferencesService.saveString(
+                            SharedPreferencesService.saveSingleString(
                                 Constant.GENDAR, dropdownvalue);
                           });
                         },

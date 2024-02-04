@@ -59,7 +59,11 @@ abstract class $AppRouter extends _i9.RootStackRouter {
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
       return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.HomeScreen(key: args.key),
+        child: _i5.HomeScreen(
+          key: args.key,
+          wishListAction: args.wishListAction,
+          isWishlist: args.isWishlist,
+        ),
       );
     },
     LoginRoute.name: (routeData) {
@@ -168,10 +172,19 @@ class FavoriteRoute extends _i9.PageRouteInfo<void> {
 class HomeRoute extends _i9.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
     _i10.Key? key,
+    dynamic Function(
+      int,
+      bool,
+    )? wishListAction,
+    bool isWishlist = false,
     List<_i9.PageRouteInfo>? children,
   }) : super(
           HomeRoute.name,
-          args: HomeRouteArgs(key: key),
+          args: HomeRouteArgs(
+            key: key,
+            wishListAction: wishListAction,
+            isWishlist: isWishlist,
+          ),
           initialChildren: children,
         );
 
@@ -182,13 +195,24 @@ class HomeRoute extends _i9.PageRouteInfo<HomeRouteArgs> {
 }
 
 class HomeRouteArgs {
-  const HomeRouteArgs({this.key});
+  const HomeRouteArgs({
+    this.key,
+    this.wishListAction,
+    this.isWishlist = false,
+  });
 
   final _i10.Key? key;
 
+  final dynamic Function(
+    int,
+    bool,
+  )? wishListAction;
+
+  final bool isWishlist;
+
   @override
   String toString() {
-    return 'HomeRouteArgs{key: $key}';
+    return 'HomeRouteArgs{key: $key, wishListAction: $wishListAction, isWishlist: $isWishlist}';
   }
 }
 
