@@ -7,7 +7,7 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           page: BottomTabRoute.page,
-          initial: true,
+          initial: false,
           children: [
             AutoRoute(
               page: HomeRoute.page,
@@ -16,7 +16,7 @@ class AppRouter extends $AppRouter {
             AutoRoute(page: ProfileAccountRoute.page),
           ],
         ),
-        AutoRoute(page: LoginRoute.page),
+        AutoRoute(page: LoginRoute.page,initial: true),
         AutoRoute(page: RegisterRoute.page),
         AutoRoute(page: DetailRoute.page),
         AutoRoute(page: EditEmailRoute.page),

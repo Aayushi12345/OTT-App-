@@ -148,7 +148,7 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                         color: Colors.grey,
                         thickness: 1,
                       ),
-                      Text("*****",
+                      Text("",
                           style: TextStyle(
                               color: Colors.blue,
                               fontSize: 20.00,

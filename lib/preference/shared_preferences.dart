@@ -71,9 +71,9 @@ class SharedPreferencesService {
     return prefs.setString(key, value);
   }
 
-  static Future<String> getSingleString(String key) async {
+  static Future<String?> getSingleString(String? key) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key)!;
+    return prefs.getString(key!);
   }
 }
 

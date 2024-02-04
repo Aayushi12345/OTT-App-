@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:ott_app/data/models/user_model.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/utils/constant.dart';
+import 'package:ott_app/utils/ttn_flix_date_picker.dart';
 @RoutePage()
 class RegisterScreen extends StatefulWidget {
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
+final TextEditingController _dobEditingController = TextEditingController();
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool passwordVisible = false;
@@ -150,6 +152,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Container(
                           margin: EdgeInsets.only(top: 20),
                           child: TextFormField(
+                            controller: _dobEditingController,
+
                             textAlign: TextAlign.start,
                             decoration: const InputDecoration(
                               labelText: Constant.DOB_TEXT_INPUT,
@@ -162,12 +166,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onFieldSubmitted: (value) {
                               //Validator
                             },
+                            onTap: () {
+                              TtnFlixDatePicker(context, date: (date) {
+                                _dobEditingController.text = date;
+                              }).show();
+                            },
                             validator: (value) {
-                              if (value!.isEmpty) {
+                              if ( _dobEditingController.text!.isEmpty) {
                                 return Constant.ENTER_VALID_DOB;
                               }
                               SharedPreferencesService.saveSingleString(
-                                  Constant.DOB, value);
+                                  Constant.DOB,  _dobEditingController.text);
                               return null;
                             },
                           ),

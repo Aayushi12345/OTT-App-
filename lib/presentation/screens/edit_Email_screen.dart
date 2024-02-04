@@ -84,16 +84,22 @@ class EditEmailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      child: Container(
-                        width: 300,
-                        child: TextButton(
-                          onPressed: () => _submit(),
-                          style: TextButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                              padding: EdgeInsets.all(16.0),
-                              foregroundColor: Colors.black,
-                              textStyle: TextStyle(fontSize: 20)),
-                          child: Text('   Update Email   '),
+                      height: 40,
+                    ),
+                    SizedBox(
+
+                      child: Center(
+                        child: Container(
+                          width: 300,
+                          child: TextButton(
+                            onPressed: () => _submit(),
+                            style: TextButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                padding: EdgeInsets.all(16.0),
+                                foregroundColor: Colors.black,
+                                textStyle: TextStyle(fontSize: 20)),
+                            child: Text('   Update Email   '),
+                          ),
                         ),
                       ),
                     ),
