@@ -3,13 +3,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ott_app/data/models/movie_model.dart';
-import 'package:ott_app/data/network/dio_custom_exception.dart';
 import 'package:ott_app/data/repositories%20/repository.dart';
 import 'package:ott_app/di/service_locator.dart';
 import 'package:ott_app/logic/cubit/movie_state.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/utils/constant.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MovieCubit extends Cubit<MovieState> {
   final Repository _repository;
@@ -21,19 +19,12 @@ class MovieCubit extends Cubit<MovieState> {
   MovieModel currentUser = MovieModel();
 
   List<Results> favouriteList = [];
-
-  // void loadSecondPageOfMovie() {
-  //   fetchMoviesData(1);
-  // }
-
   getFavouriteList() async {
     favouriteList = manager.getList<Results>('favouriteList', Results.fromJson);
-    print('FavList: $favouriteList');
   }
 
   getUser() async {
     currentUser = manager.getObject('currentUser', MovieModel.fromJson)!;
-    print('currentUser : $currentUser');
   }
 
   Future<void> fetchMoviesData(int pageNo) async {
@@ -56,47 +47,6 @@ class MovieCubit extends Cubit<MovieState> {
         gridList.page, gridList.totalPages, false, true);
   }
 
-  // Future<void> loadMoviesData(int pageNo) async {
-  //   getFavouriteList();
-  //   try {
-  //     if (pageNo == 1) {
-  //       final dataList = await _repository.getMoviesData(pageNo);
-  //       final dataList2 = await _repository.getMoviesData(++pageNo);
-  //
-  //       checkFavourites(
-  //           favouriteList,
-  //           dataList.results,
-  //           dataList2.results,
-  //           dataList.page ?? 1,
-  //           dataList.totalPages ?? -1,
-  //           false,true);
-  //       setupCarousalAutomaticRotation();
-  //     } else {
-  //       if (state is LoadedState) {
-  //         var homeLoadedState = state as LoadedState;
-  //         emit(homeLoadedState.copyWith(isReachedEnd: true));
-  //
-  //         final dataList = await _repository.getMoviesData(pageNo);
-  //
-  //         homeLoadedState.gridList?.addAll(dataList.results ?? []);
-  //         checkFavourites(
-  //             favouriteList,
-  //             dataList.results,
-  //             dataList.results,
-  //             dataList.page ?? 1,
-  //             dataList.totalPages ?? -1,
-  //             false,true);
-  //         // emit((state as LoadedState).copyWith(
-  //         //     gridList: homeLoadedState.gridList,
-  //         //     currentPage: dataList.page,
-  //         //     totalPages: dataList.totalPages,
-  //         //     isReachedEnd: false));
-  //       }
-  //     }
-  //   } on CustomException catch (e) {
-  //     emit(ErrorState('Failed to load data: ${e.message}'));
-  //   }
-  // }
   void _setupCarousalAutomaticRotation() {
     if (state is LoadedState) {
       const Duration duration = Constant.carouselTimeout;
@@ -126,6 +76,11 @@ class MovieCubit extends Cubit<MovieState> {
         fetchMoviesData(++currentPage);
       }
     }
+  }
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
   }
 
     void checkFavourites(List<Results> favouriteList,
@@ -182,7 +137,7 @@ class MovieCubit extends Cubit<MovieState> {
       if (results.isFavourite != null && results.isFavourite == true) {
         for (Results favResults in favouriteList) {
           if (favResults.id == results.id) {
-            results.isFavourite = null;
+            results.isFavourite = false;
             favouriteList.remove(favResults);
           }
         }

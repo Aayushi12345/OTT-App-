@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:ott_app/data/models/user_model.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/utils/constant.dart';
+import 'package:ott_app/utils/ttn_flix_date_picker.dart';
 
 @RoutePage()
-class EditEmailScreen extends StatelessWidget {
-  final TextEditingController _nameEditingController = TextEditingController();
+class UpdateDobScreen extends StatelessWidget {
+  final TextEditingController _dobEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     void _submit() async {
       SharedPreferencesService.saveSingleString(
-          Constant.EMAIL, _nameEditingController.text);
+          Constant.DOB, _dobEditingController.text);
       final isValid = _formKey.currentState!.validate();
       if (!isValid) {
         return;
@@ -28,7 +29,9 @@ class EditEmailScreen extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: Text("Update Email"),
+          backgroundColor: Colors.blue,
+
+          title: Text("Update Date of Birth"),
         ),
         body: SafeArea(
             child: Form(
@@ -46,10 +49,10 @@ class EditEmailScreen extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(top: 20),
                             child: TextFormField(
-                              controller: _nameEditingController,
+                              controller: _dobEditingController,
                               textAlign: TextAlign.start,
                               decoration: const InputDecoration(
-                                labelText: Constant.EMAIL_ID,
+                                labelText: Constant.DOB_TEXT_INPUT,
                                 labelStyle: TextStyle(
                                   color: Colors.grey,
                                 ),
@@ -59,13 +62,17 @@ class EditEmailScreen extends StatelessWidget {
                               onFieldSubmitted: (value) {
                                 //Validator
                               },
+                              onTap: () {
+                                TtnFlixDatePicker(context, date: (date) {
+                                  _dobEditingController.text = date;
+                                }).show();
+                              },
                               validator: (value) {
-                                if (value!.isEmpty ||
-                                    !RegExp(Constant.EMAIL_VALIDATION)
-                                        .hasMatch(value)) {
-                                  return Constant.ENTER_VALID_EMAIL;
+                                if (_dobEditingController.text!.isEmpty
+                                   ) {
+                                  return Constant.ENTER_VALID_DOB;
                                 }
-                                user.email = value.toString();
+                                user.dob = value.toString();
                                 return null;
                               },
                             ),
@@ -77,7 +84,7 @@ class EditEmailScreen extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 3),
                               color: Colors.white,
-                              child: const Text(Constant.EMAIL_TEXT_INPUT),
+                              child: const Text(Constant.DOB_TEXT_INPUT),
                             ),
                           ),
                         ],
@@ -98,7 +105,7 @@ class EditEmailScreen extends StatelessWidget {
                                 padding: EdgeInsets.all(16.0),
                                 foregroundColor: Colors.black,
                                 textStyle: TextStyle(fontSize: 20)),
-                            child: Text('   Update Email   '),
+                            child: Text('   Update DOB   '),
                           ),
                         ),
                       ),

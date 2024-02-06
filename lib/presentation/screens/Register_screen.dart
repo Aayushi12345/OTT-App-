@@ -44,6 +44,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blue,
+
           title: const Center(child: Text(Constant.SIGN_UP)),
         ),
         body: SafeArea(
@@ -138,7 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 3),
                             color: Colors.white,
-                            child: Text(Constant.EMAIL),
+                            child: Text(Constant.EMAIL_TEXT_INPUT),
                           ),
                         ),
                       ],

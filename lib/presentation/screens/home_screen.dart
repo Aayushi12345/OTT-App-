@@ -2,14 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ott_app/data/repositories%20/repository.dart';
 import 'package:ott_app/logic/cubit/movie_cubit.dart';
 import 'package:ott_app/logic/cubit/movie_state.dart';
 import 'package:ott_app/logic/wishList/wishlist_cubit.dart';
 import 'package:ott_app/presentation/screens/movie_gridview_widget.dart';
 import 'package:ott_app/utils/constant.dart';
 
-import '../../routes/app_router.gr.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -17,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
   WishListCubit wishListCubit = WishListCubit();
   Function(int,bool)? wishListAction;
+  final int maxCount = 10;
 
   ValueNotifier<bool> _wishlist = ValueNotifier<bool>(false);
   late bool isWishlist;
@@ -31,6 +30,7 @@ class HomeScreen extends StatelessWidget {
         home: Scaffold(
             appBar: AppBar(
               centerTitle: true,
+              backgroundColor: Colors.blue,
               title: Text("Movie List"),
             ),
             body: BlocBuilder<MovieCubit, MovieState>(
@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                                     BlocProvider.of<MovieCubit>(context)
                                         .updateDotIndicator(page);
                                   },
-                                  itemCount: state.carouselList?.length,
+                                  itemCount: maxCount,
                                   itemBuilder: (context, index) {
                                     return Column(
                                       children: [
@@ -97,9 +97,10 @@ class HomeScreen extends StatelessWidget {
                                                       )),
                                       );
                                     },
-                                    itemCount: state.carouselList?.length,
+                                    itemCount:maxCount,
                                     scrollDirection: Axis.horizontal,
                                   ),
+
                                 ),
                               ),
                             ]),
@@ -111,17 +112,19 @@ class HomeScreen extends StatelessWidget {
                                     .saveFavourite(items);
                               },),
 
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 16),
-                            child: state.isReachedEnd!
-                                ? CircularProgressIndicator()
-                                : Container(),
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: 16),
+                              child: state.isReachedEnd!
+                                  ? CircularProgressIndicator()
+                                  : Container(),
+                            ),
                           )
                         ],
                       ),
                     )
                   : state is LoadingState
-                      ? CircularProgressIndicator()
+                      ? Center(child: CircularProgressIndicator())
                       : state is ErrorState
                           ? Column()
                           : Container();

@@ -8,33 +8,34 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i9;
-import 'package:flutter/material.dart' as _i10;
-import 'package:ott_app/data/models/movie_model.dart' as _i11;
+import 'package:auto_route/auto_route.dart' as _i10;
+import 'package:flutter/material.dart' as _i11;
+import 'package:ott_app/data/models/movie_model.dart' as _i12;
 import 'package:ott_app/presentation/screens/bottom_bar_screen.dart' as _i1;
 import 'package:ott_app/presentation/screens/detail_screen.dart' as _i2;
-import 'package:ott_app/presentation/screens/edit_Email_screen.dart' as _i3;
-import 'package:ott_app/presentation/screens/Favorite_screen.dart' as _i4;
-import 'package:ott_app/presentation/screens/home_screen.dart' as _i5;
-import 'package:ott_app/presentation/screens/login_screen.dart' as _i6;
+import 'package:ott_app/presentation/screens/Favorite_screen.dart' as _i3;
+import 'package:ott_app/presentation/screens/home_screen.dart' as _i4;
+import 'package:ott_app/presentation/screens/login_screen.dart' as _i5;
 import 'package:ott_app/presentation/screens/profile_account_screen.dart'
-    as _i7;
-import 'package:ott_app/presentation/screens/Register_screen.dart' as _i8;
+    as _i6;
+import 'package:ott_app/presentation/screens/Register_screen.dart' as _i7;
+import 'package:ott_app/presentation/screens/update_dob_screen.dart' as _i8;
+import 'package:ott_app/presentation/screens/update_Name_screen.dart' as _i9;
 
-abstract class $AppRouter extends _i9.RootStackRouter {
+abstract class $AppRouter extends _i10.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i9.PageFactory> pagesMap = {
+  final Map<String, _i10.PageFactory> pagesMap = {
     BottomTabRoute.name: (routeData) {
-      return _i9.AutoRoutePage<dynamic>(
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.BottomTabScreen(),
       );
     },
     DetailRoute.name: (routeData) {
       final args = routeData.argsAs<DetailRouteArgs>();
-      return _i9.AutoRoutePage<dynamic>(
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.DetailScreen(
           key: args.key,
@@ -42,24 +43,18 @@ abstract class $AppRouter extends _i9.RootStackRouter {
         ),
       );
     },
-    EditEmailRoute.name: (routeData) {
-      return _i9.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i3.EditEmailScreen(),
-      );
-    },
     FavoriteRoute.name: (routeData) {
-      return _i9.AutoRoutePage<dynamic>(
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.FavoriteScreen(),
+        child: const _i3.FavoriteScreen(),
       );
     },
     HomeRoute.name: (routeData) {
       final args =
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
-      return _i9.AutoRoutePage<dynamic>(
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.HomeScreen(
+        child: _i4.HomeScreen(
           key: args.key,
           wishListAction: args.wishListAction,
           isWishlist: args.isWishlist,
@@ -67,21 +62,33 @@ abstract class $AppRouter extends _i9.RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
-      return _i9.AutoRoutePage<dynamic>(
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i6.LoginScreen(),
+        child: _i5.LoginScreen(),
       );
     },
     ProfileAccountRoute.name: (routeData) {
-      return _i9.AutoRoutePage<dynamic>(
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.ProfileAccountScreen(),
+        child: const _i6.ProfileAccountScreen(),
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i9.AutoRoutePage<dynamic>(
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i8.RegisterScreen(),
+        child: _i7.RegisterScreen(),
+      );
+    },
+    UpdateDobRoute.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i8.UpdateDobScreen(),
+      );
+    },
+    UpdateNameRoute.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i9.UpdateNameScreen(),
       );
     },
   };
@@ -89,8 +96,8 @@ abstract class $AppRouter extends _i9.RootStackRouter {
 
 /// generated route for
 /// [_i1.BottomTabScreen]
-class BottomTabRoute extends _i9.PageRouteInfo<void> {
-  const BottomTabRoute({List<_i9.PageRouteInfo>? children})
+class BottomTabRoute extends _i10.PageRouteInfo<void> {
+  const BottomTabRoute({List<_i10.PageRouteInfo>? children})
       : super(
           BottomTabRoute.name,
           initialChildren: children,
@@ -98,16 +105,16 @@ class BottomTabRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'BottomTabRoute';
 
-  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.DetailScreen]
-class DetailRoute extends _i9.PageRouteInfo<DetailRouteArgs> {
+class DetailRoute extends _i10.PageRouteInfo<DetailRouteArgs> {
   DetailRoute({
-    _i10.Key? key,
-    required _i11.Results movie,
-    List<_i9.PageRouteInfo>? children,
+    _i11.Key? key,
+    required _i12.Results movie,
+    List<_i10.PageRouteInfo>? children,
   }) : super(
           DetailRoute.name,
           args: DetailRouteArgs(
@@ -119,8 +126,8 @@ class DetailRoute extends _i9.PageRouteInfo<DetailRouteArgs> {
 
   static const String name = 'DetailRoute';
 
-  static const _i9.PageInfo<DetailRouteArgs> page =
-      _i9.PageInfo<DetailRouteArgs>(name);
+  static const _i10.PageInfo<DetailRouteArgs> page =
+      _i10.PageInfo<DetailRouteArgs>(name);
 }
 
 class DetailRouteArgs {
@@ -129,9 +136,9 @@ class DetailRouteArgs {
     required this.movie,
   });
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 
-  final _i11.Results movie;
+  final _i12.Results movie;
 
   @override
   String toString() {
@@ -140,23 +147,9 @@ class DetailRouteArgs {
 }
 
 /// generated route for
-/// [_i3.EditEmailScreen]
-class EditEmailRoute extends _i9.PageRouteInfo<void> {
-  const EditEmailRoute({List<_i9.PageRouteInfo>? children})
-      : super(
-          EditEmailRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'EditEmailRoute';
-
-  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i4.FavoriteScreen]
-class FavoriteRoute extends _i9.PageRouteInfo<void> {
-  const FavoriteRoute({List<_i9.PageRouteInfo>? children})
+/// [_i3.FavoriteScreen]
+class FavoriteRoute extends _i10.PageRouteInfo<void> {
+  const FavoriteRoute({List<_i10.PageRouteInfo>? children})
       : super(
           FavoriteRoute.name,
           initialChildren: children,
@@ -164,20 +157,20 @@ class FavoriteRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'FavoriteRoute';
 
-  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i5.HomeScreen]
-class HomeRoute extends _i9.PageRouteInfo<HomeRouteArgs> {
+/// [_i4.HomeScreen]
+class HomeRoute extends _i10.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    _i10.Key? key,
+    _i11.Key? key,
     dynamic Function(
       int,
       bool,
     )? wishListAction,
     bool isWishlist = false,
-    List<_i9.PageRouteInfo>? children,
+    List<_i10.PageRouteInfo>? children,
   }) : super(
           HomeRoute.name,
           args: HomeRouteArgs(
@@ -190,8 +183,8 @@ class HomeRoute extends _i9.PageRouteInfo<HomeRouteArgs> {
 
   static const String name = 'HomeRoute';
 
-  static const _i9.PageInfo<HomeRouteArgs> page =
-      _i9.PageInfo<HomeRouteArgs>(name);
+  static const _i10.PageInfo<HomeRouteArgs> page =
+      _i10.PageInfo<HomeRouteArgs>(name);
 }
 
 class HomeRouteArgs {
@@ -201,7 +194,7 @@ class HomeRouteArgs {
     this.isWishlist = false,
   });
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 
   final dynamic Function(
     int,
@@ -217,9 +210,9 @@ class HomeRouteArgs {
 }
 
 /// generated route for
-/// [_i6.LoginScreen]
-class LoginRoute extends _i9.PageRouteInfo<void> {
-  const LoginRoute({List<_i9.PageRouteInfo>? children})
+/// [_i5.LoginScreen]
+class LoginRoute extends _i10.PageRouteInfo<void> {
+  const LoginRoute({List<_i10.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           initialChildren: children,
@@ -227,13 +220,13 @@ class LoginRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'LoginRoute';
 
-  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i7.ProfileAccountScreen]
-class ProfileAccountRoute extends _i9.PageRouteInfo<void> {
-  const ProfileAccountRoute({List<_i9.PageRouteInfo>? children})
+/// [_i6.ProfileAccountScreen]
+class ProfileAccountRoute extends _i10.PageRouteInfo<void> {
+  const ProfileAccountRoute({List<_i10.PageRouteInfo>? children})
       : super(
           ProfileAccountRoute.name,
           initialChildren: children,
@@ -241,13 +234,13 @@ class ProfileAccountRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'ProfileAccountRoute';
 
-  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i8.RegisterScreen]
-class RegisterRoute extends _i9.PageRouteInfo<void> {
-  const RegisterRoute({List<_i9.PageRouteInfo>? children})
+/// [_i7.RegisterScreen]
+class RegisterRoute extends _i10.PageRouteInfo<void> {
+  const RegisterRoute({List<_i10.PageRouteInfo>? children})
       : super(
           RegisterRoute.name,
           initialChildren: children,
@@ -255,5 +248,33 @@ class RegisterRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'RegisterRoute';
 
-  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i8.UpdateDobScreen]
+class UpdateDobRoute extends _i10.PageRouteInfo<void> {
+  const UpdateDobRoute({List<_i10.PageRouteInfo>? children})
+      : super(
+          UpdateDobRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateDobRoute';
+
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i9.UpdateNameScreen]
+class UpdateNameRoute extends _i10.PageRouteInfo<void> {
+  const UpdateNameRoute({List<_i10.PageRouteInfo>? children})
+      : super(
+          UpdateNameRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateNameRoute';
+
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }

@@ -47,6 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blue,
+
           title: const Center(child: Text(Constant.LOGIN)),
         ),
         body: SafeArea(

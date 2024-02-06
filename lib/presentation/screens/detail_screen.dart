@@ -17,6 +17,8 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blue,
+
           title: Text(movie.title.toString()),
         ),
         body: SafeArea(

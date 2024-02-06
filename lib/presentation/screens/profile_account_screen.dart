@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ott_app/data/models/user_model.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
@@ -17,6 +20,8 @@ class ProfileAccountScreen extends StatefulWidget {
 
 class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
   UserResponse user = UserResponse();
+  File? selectedImage;
+  Uint8List? _image;
 
   @override
   void initState() {
@@ -48,7 +53,6 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
 
   void getData(String updatedEmail)  {
     setState(() async {
-      debugPrint("mnbvc" + updatedEmail.toString());
       String? email = await SharedPreferencesService.getSingleString(Constant.EMAIL);
 
       user.email = email;
@@ -57,11 +61,12 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
   @override
   Widget build(BuildContext context) {
 
-
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
               centerTitle: false,
+              backgroundColor: Colors.blue,
+
               title: Text("Profile Screen"),
             ),
             body: SafeArea(
@@ -69,86 +74,138 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                 padding: EdgeInsets.all(15.0),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
+                      Stack(
                         children: [
-                          CircleAvatar(
-                            radius: 50, // Image radius
-                            backgroundImage: AssetImage(user.imgUrl.toString()),
-                            // backgroundColor: Colors.greenAccent,
-                          ),
-                          SizedBox(width: 20),
-                          Column(children: [
-                            Text(user.name.toString(),
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 15.00,
-                                    fontWeight: FontWeight.bold)),
-                            Row(
-                              children: [
-                                Text(user.email.toString(),
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 15.00,
-                                        fontWeight: FontWeight.bold)),
-                                SizedBox(
-                                  width: 50,
+                          Row(
+
+                            children: [
+                              _image!=null ?
+                              CircleAvatar(
+                                radius: 50, // Image radius
+                                backgroundImage: MemoryImage(_image!)
+
+                              )
+                              : CircleAvatar(
+                                            radius: 50, // Image radius
+                                            backgroundImage: AssetImage(user.imgUrl.toString())
+                              ),
+
+                              const SizedBox(width: 20),
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children:
+                                  [
+                                    Text(user.name.toString(),
+                                      style: const TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 15.00,
+                                          fontWeight: FontWeight.bold)),
+                                    const SizedBox(
+                                      width: 50,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        var updatedName =
+                                        await context.pushRoute(UpdateNameRoute());
+                                        MyUserData();
+                                        // getData(updatedEmail.toString());
+                                      },
+                                      // Image tapped
+                                      child: Image.asset(
+                                        'assets/images/pen.png',
+                                        fit: BoxFit.cover,
+                                        // Fixes border issues
+                                        width: 30.0,
+                                        height: 30.0,
+                                      ),
+                                    )
+                                  ]
                                 ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    var updatedEmail =
-                                       await context.pushRoute(EditEmailRoute());
-                                    MyUserData();
-                                    // getData(updatedEmail.toString());
-                                  },
-                                  // Image tapped
-                                  child: Image.asset(
-                                    'assets/images/pen.png',
-                                    fit: BoxFit.cover,
-                                    // Fixes border issues
-                                    width: 30.0,
-                                    height: 30.0,
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(user.email.toString(),
+                                        style: const TextStyle(
+                                            color: Colors.blue,
+                                            fontSize: 15.00,
+                                            fontWeight: FontWeight.bold)),
+
+                                  ],
                                 )
-                              ],
-                            )
-                          ]),
+                              ]),
+                            ],
+                          ),
+                          Positioned(
+                              bottom: 10,
+                              left: 70,
+                              child: IconButton(
+                                onPressed: (){
+                                  showImagePickerOption(context);
+                                },icon:  const Icon(Icons.add_a_photo),
+                              )),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Divider(
+                      const Divider(
                         color: Colors.grey,
                         thickness: 1,
                       ),
-                      Text(user.dob.toString(),
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 20.00,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.start),
-                      SizedBox(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(user.dob.toString(),
+                              style: const TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 20.00,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.start),
+                          const SizedBox(
+                            width: 50,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              var updatedEmail =
+                                 await context.pushRoute(UpdateDobRoute());
+                              MyUserData();
+                              // getData(updatedEmail.toString());
+                            },
+                            // Image tapped
+                            child: Image.asset(
+                              'assets/images/pen.png',
+                              fit: BoxFit.cover,
+                              // Fixes border issues
+                              width: 30.0,
+                              height: 30.0,
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
                         height: 10,
                       ),
-                      Divider(
+                      const Divider(
                         color: Colors.grey,
                         thickness: 1,
                       ),
                       Text(user.gendar.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.blue,
                               fontSize: 20.00,
                               fontWeight: FontWeight.bold)),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Divider(
+                      const Divider(
                         color: Colors.grey,
                         thickness: 1,
                       ),
-                      Text("",
+                      const Text("",
                           style: TextStyle(
                               color: Colors.blue,
                               fontSize: 20.00,
@@ -156,5 +213,74 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                     ]),
               ),
             )));
+  }
+
+  void showImagePickerOption(BuildContext context)
+  {
+    showModalBottomSheet(
+        backgroundColor: Colors.blue[100],
+        context: context, builder: (builder)
+    {
+      return Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height/4.5,
+          child: Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: (){
+                    _pickImageFromGallery();
+                  },
+                  child: const SizedBox(
+                      child: Column(
+                        children: [
+                          Icon(Icons.image,size: 70,),Text("Gallery")
+                        ],
+                      )),
+                ),
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: (){
+                    _pickImageFromCamera();
+                  },
+                  child: const SizedBox(
+                      child: Column(
+                        children: [
+                          Icon(Icons.camera_alt,size: 70,),Text("Camera")
+                        ],
+                      )),
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+
+    });
+  }
+
+  Future _pickImageFromGallery () async{
+    final returnImage=
+        await ImagePicker().pickImage(source:ImageSource.gallery);
+    if(returnImage==null) return;
+    setState(() {
+      selectedImage = File(returnImage.path);
+      _image =File(returnImage.path).readAsBytesSync();
+    });
+    Navigator.of(context).pop();
+
+  }
+  Future _pickImageFromCamera() async {
+    final returnImage =
+    await ImagePicker().pickImage(source: ImageSource.camera);
+    if (returnImage == null) return;
+    setState(() {
+      selectedImage = File(returnImage.path);
+      _image = File(returnImage.path).readAsBytesSync();
+    });
+    Navigator.of(context).pop();
   }
 }

@@ -27,7 +27,7 @@ class Constant {
 
 
   static const String SIGN_UP = "Sign-Up";
-  static const String REGISTER_NEW_ACCOUNT = "Register new Account";
+  static const String REGISTER_NEW_ACCOUNT = "Create new Account";
   static const String MALE = "Male";
   static const String FEMALE = "Female";
   static const String LOGIN = "Login";
