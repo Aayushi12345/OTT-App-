@@ -61,19 +61,21 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               centerTitle: false,
               backgroundColor: Colors.blue,
 
               title: Text("Profile Screen"),
             ),
             body: SafeArea(
+
               child: Padding(
                 padding: EdgeInsets.all(15.0),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+
                     children: [
                       Stack(
                         children: [
@@ -152,10 +154,10 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Divider(
-                        color: Colors.grey,
-                        thickness: 1,
-                      ),
+                      // const Divider(
+                      //   color: Colors.grey,
+                      //   thickness: 1,
+                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -180,8 +182,8 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                               'assets/images/pen.png',
                               fit: BoxFit.cover,
                               // Fixes border issues
-                              width: 30.0,
-                              height: 30.0,
+                              width: 22.0,
+                              height: 22.0,
                             ),
                           )
                         ],
@@ -189,10 +191,10 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Divider(
-                        color: Colors.grey,
-                        thickness: 1,
-                      ),
+                      // const Divider(
+                      //   color: Colors.grey,
+                      //   thickness: 1,
+                      // ),
                       Text(user.gendar.toString(),
                           style: const TextStyle(
                               color: Colors.blue,
@@ -201,17 +203,17 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Divider(
-                        color: Colors.grey,
-                        thickness: 1,
-                      ),
+                      // const Divider(
+                      //   color: Colors.grey,
+                      //   thickness: 1,
+                      // ),
                       const Text("",
                           style: TextStyle(
                               color: Colors.blue,
                               fontSize: 20.00,
                               fontWeight: FontWeight.bold)),
                     ]),
-              ),
+
             )));
   }
 

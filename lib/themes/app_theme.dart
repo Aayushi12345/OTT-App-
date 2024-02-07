@@ -18,24 +18,42 @@ class AppTheme {
     disabledColor: AppColors.groundColor.lightColor?.withOpacity(0.345),
     shadowColor: AppColors.groundColor.lightColor?.withOpacity(0.33),
     dividerTheme: _getDividerThemeData(Brightness.light),
-    inputDecorationTheme: _getInputDecorationTheme(Brightness.light),
+    // inputDecorationTheme: _getInputDecorationTheme(Brightness.light),
     fontFamily: 'Inter',
     splashColor: Platform.isIOS ? Colors.transparent : null,
     appBarTheme: _appBarThemeData(Brightness.light),
     textTheme: Styles.defaultTextTheme.apply(
         bodyColor: AppColors.informGreyColor.lightColor,
         displayColor: AppColors.informGreyColor.lightColor),
+    inputDecorationTheme: InputDecorationTheme(
+        labelStyle: TextStyle(color: Colors.blue),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              style: BorderStyle.solid,
+              color: Colors.blue
+          ),
+        )
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
+      inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: Colors.blue),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                style: BorderStyle.solid,
+                color: Colors.blue
+            ),
+          )
+      ),
       primaryColor: AppColors.primaryColor.darkColor,
       canvasColor: AppColors.canvasColor.darkColor,
       dividerColor: AppColors.dividerColor.darkColor,
       disabledColor: AppColors.groundColor.darkColor?.withOpacity(0.345),
       shadowColor: AppColors.groundColor.darkColor?.withOpacity(0.33),
       dividerTheme: _getDividerThemeData(Brightness.dark),
-      inputDecorationTheme: _getInputDecorationTheme(Brightness.dark),
+      // inputDecorationTheme: _getInputDecorationTheme(Brightness.dark),
       appBarTheme: _appBarThemeData(Brightness.dark),
       fontFamily: 'Inter',
       textTheme: Styles.defaultTextTheme.apply(
@@ -44,8 +62,10 @@ class AppTheme {
       bottomSheetTheme: _bottomSheetThemeData(Brightness.dark),
       tabBarTheme: _getDefaultTabBarTheme(Brightness.dark),
       tooltipTheme: _getTooltipThemeData(Brightness.dark),
+      // colorScheme: ColorScheme.light()
       colorScheme: _getAppColorScheme(Brightness.dark)
-          .copyWith(background: AppColors.backgroundColor.darkColor));
+          .copyWith(background: AppColors.backgroundColor.darkColor)
+  );
 
   static InputDecorationTheme _getInputDecorationTheme(Brightness brightness) {
     final secondaryTextColor = AppColors.tabSecondaryTextColor[brightness];

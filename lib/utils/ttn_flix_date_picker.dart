@@ -15,6 +15,7 @@ class TtnFlixDatePicker {
       initialDate: DateTime.now(),
       firstDate: DateTime(DateTime.now().year - 100),
       lastDate: DateTime.now(),
+
     );
     if (pickedDate != null) {
       String formattedDate =

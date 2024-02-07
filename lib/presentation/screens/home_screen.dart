@@ -26,9 +26,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
+
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               centerTitle: true,
               backgroundColor: Colors.blue,
               title: Text("Movie List"),
@@ -73,12 +74,12 @@ class HomeScreen extends StatelessWidget {
                                 alignment: Alignment.bottomCenter,
                                 child: Container(
                                   height: 120,
-                                  margin: EdgeInsets.only(bottom: 20),
+                                  margin: const EdgeInsets.only(bottom: 20),
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       return Padding(
-                                        padding: EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(5),
                                         child: SizedBox(
                                             height: 10,
                                             child:
@@ -114,9 +115,9 @@ class HomeScreen extends StatelessWidget {
 
                           Center(
                             child: Padding(
-                              padding: EdgeInsets.only(bottom: 16),
+                              padding: const EdgeInsets.only(bottom: 16),
                               child: state.isReachedEnd!
-                                  ? CircularProgressIndicator()
+                                  ? const CircularProgressIndicator()
                                   : Container(),
                             ),
                           )
@@ -124,11 +125,11 @@ class HomeScreen extends StatelessWidget {
                       ),
                     )
                   : state is LoadingState
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : state is ErrorState
-                          ? Column()
+                          ? const Column()
                           : Container();
-            })));
+            }));
   }
 
   ScrollController initScrollListener(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
+import 'package:ott_app/themes/styles.dart';
 import 'package:ott_app/utils/constant.dart';
 
 @RoutePage()
@@ -62,104 +63,99 @@ class _LoginScreenState extends State<LoginScreen> {
                     'assets/images/ott.png',
                     height: 150,
                   ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white),
-                    // padding: new EdgeInsets.all(20.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            textAlign: TextAlign.start,
-                            decoration: const InputDecoration(
-                              labelText: Constant.EMAIL_ID,
-                              labelStyle: TextStyle(
-                                color: Colors.grey,
-                              ),
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(),
-                            ),
-                            onFieldSubmitted: (value) {
-                              //Validator
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty ||
-                                  !RegExp(Constant.EMAIL_VALIDATION)
-                                      .hasMatch(value)) {
-                                // set username(String value) => SharedPreferencesService_saveData(_kUsernameKey, value);
-
-                                // sharedPreferences.sa
-                                return Constant.ENTER_VALID_EMAIL;
-                              }
-                              // user.email.toString() =value.toString()
-                              email = value;
-                              return null;
-                            },
-                          ),
-                        ),
-                        Positioned(
-                          left: 10,
-                          top: 3,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 3),
-                            color: Colors.white,
-                            child: const Text(Constant.EMAIL_TEXT_INPUT),
-                          ),
-                        ),
-                      ],
-                    ),
+                  const SizedBox(
+                    height: 150,
                   ),
-                  Container(
-                    decoration: const BoxDecoration(color: Colors.white),
-                    // padding: new EdgeInsets.all(20.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 20, bottom: 20),
-                          child: TextFormField(
-                            obscureText: passwordVisible,
-                            textAlign: TextAlign.start,
-                            decoration: InputDecoration(
-                              labelText: Constant.PASSWORD_TEXT_INPUT,
-                              labelStyle: const TextStyle(
-                                color: Colors.grey,
-                              ),
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(),
-                              suffixIcon: IconButton(
-                                icon: Icon(passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      passwordVisible = !passwordVisible;
-                                    },
-                                  );
-                                },
-                              ),
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.blue),
+                          textAlign: TextAlign.start,
+                          decoration: const InputDecoration(
+                            labelText: Constant.EMAIL_ID,
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
                             ),
-                            onFieldSubmitted: (value) {},
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return Constant.ENTER_VALID_PASSWORD;
-                              }
-                              password = value;
-                              return null;
-                            },
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.blue
+                              )
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.blue
+                              )
+                            ),
                           ),
+                          onFieldSubmitted: (value) {
+                            //Validator
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty ||
+                                !RegExp(Constant.EMAIL_VALIDATION)
+                                    .hasMatch(value)) {
+                              // set username(String value) => SharedPreferencesService_saveData(_kUsernameKey, value);
+
+                              // sharedPreferences.sa
+                              return Constant.ENTER_VALID_EMAIL;
+                            }
+                            // user.email.toString() =value.toString()
+                            email = value;
+                            return null;
+                          },
                         ),
-                        Positioned(
-                          left: 10,
-                          top: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 3),
-                            color: Colors.white,
-                            child: Text(Constant.PASSWORD_TEXT_INPUT),
+                      ),
+                    ],
+                  ),
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 20, bottom: 20),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.blue),
+                          obscureText: passwordVisible,
+                          textAlign: TextAlign.start,
+                          decoration: InputDecoration(
+                            labelText: Constant.PASSWORD_TEXT_INPUT,
+                            labelStyle: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.blue
+                                )
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.blue
+                                )
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                            ),
                           ),
+                          onFieldSubmitted: (value) {},
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return Constant.ENTER_VALID_PASSWORD;
+                            }
+                            password = value;
+                            return null;
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     child: Container(
@@ -168,29 +164,33 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () => _submit(),
                         style: TextButton.styleFrom(
                             backgroundColor: Colors.blue,
-                            padding: EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(16.0),
                             foregroundColor: Colors.black,
-                            textStyle: TextStyle(fontSize: 20)),
-                        child: Text('   Login   '),
+                            textStyle: const TextStyle(fontSize: 20)),
+                        child: const Text('   Login   '),
                       ),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     child: GestureDetector(
                       onTap: () {
                         context.router.push(const RegisterRoute());
                       },
-                      child: Text(Constant.REGISTER_NEW_ACCOUNT),
+                      child: const Text(Constant.REGISTER_NEW_ACCOUNT,style: TextStyle(
+                        color: Colors.blue
+                      ),),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     child: GestureDetector(
                       onTap: () {
                         context.router.push( HomeRoute());
                       },
-                      child: Text("SKip"),
+                      child: const Text("Skip",style: TextStyle(
+                          color: Colors.blue
+                      )),
                     ),
                   )
                 ]),

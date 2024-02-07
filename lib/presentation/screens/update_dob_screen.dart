@@ -25,8 +25,7 @@ class UpdateDobScreen extends StatelessWidget {
 
     UserResponse user = UserResponse();
 
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           centerTitle: false,
           backgroundColor: Colors.blue,
@@ -42,22 +41,31 @@ class UpdateDobScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      decoration: BoxDecoration(color: Colors.white),
                       // padding: new EdgeInsets.all(20.0),
                       child: Stack(
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.only(top: 20),
                             child: TextFormField(
+                              style: const TextStyle(color: Colors.blue),
+
                               controller: _dobEditingController,
                               textAlign: TextAlign.start,
                               decoration: const InputDecoration(
                                 labelText: Constant.DOB_TEXT_INPUT,
                                 labelStyle: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.blue,
                                 ),
-                                border: OutlineInputBorder(),
-                                focusedBorder: OutlineInputBorder(),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue
+                                    )
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue
+                                    )
+                                ),
                               ),
                               onFieldSubmitted: (value) {
                                 //Validator
@@ -77,16 +85,16 @@ class UpdateDobScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          Positioned(
-                            left: 10,
-                            top: 3,
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 3),
-                              color: Colors.white,
-                              child: const Text(Constant.DOB_TEXT_INPUT),
-                            ),
-                          ),
+                          // Positioned(
+                          //   left: 10,
+                          //   top: 3,
+                          //   child: Container(
+                          //     padding:
+                          //         const EdgeInsets.symmetric(horizontal: 3),
+                          //     color: Colors.white,
+                          //     child: const Text(Constant.DOB_TEXT_INPUT),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -112,7 +120,7 @@ class UpdateDobScreen extends StatelessWidget {
                     ),
                   ])),
         )),
-      ),
+
     );
   }
 }

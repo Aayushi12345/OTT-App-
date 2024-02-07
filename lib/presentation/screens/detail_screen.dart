@@ -26,43 +26,54 @@ class DetailScreen extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Container(
-                  child: SizedBox(
-                height: 200,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Image.network(
-                        Constant.IMAGE_BASE_URL + movie.posterPath.toString(),
-                        fit: BoxFit.cover),
-                    ClipRRect(
-                      // Clip it cleanly.
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                        child: Container(
-                          color: Colors.grey.withOpacity(0.1),
-                          alignment: Alignment.center,
-                          child: Image.network(
-                            Constant.IMAGE_BASE_URL +
-                                movie.posterPath.toString(),
-                            fit: BoxFit.fill,
-                            height: 200,
-                          ),
-                        ),
+              SizedBox(
+                              height: 200,
+                              child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                    Constant.IMAGE_BASE_URL + movie.posterPath.toString(),
+                    fit: BoxFit.cover),
+                ClipRRect(
+                  // Clip it cleanly.
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Container(
+                      color: Colors.blue.withOpacity(0.1),
+                      alignment: Alignment.center,
+                      child: Image.network(
+                        Constant.IMAGE_BASE_URL +
+                            movie.posterPath.toString(),
+                        fit: BoxFit.fill,
+                        height: 200,
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              )),
+              ],
+                              ),
+                            ),
               const SizedBox(
                 height: 25,
               ),
-              const Text(Constant.OVERVIEW,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15.00,
-                      fontWeight: FontWeight.bold)),
-              Text(movie.overview.toString()),
+               Text(Constant.OVERVIEW,
+
+                  style: Theme.of(context).brightness == Brightness.dark ? const TextStyle(color: Colors.white, fontSize: 16.00,
+                  fontWeight: FontWeight.bold) : const TextStyle(color: Colors.black, fontSize: 16.00,
+                fontWeight: FontWeight.bold),
+
+                  // style: TextStyle(
+                  //     color: Colors.blue,
+                  //     fontSize: 16.00,
+                  //     fontWeight: FontWeight.bold)
+              ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+              Text(movie.overview.toString(),
+                style: Theme.of(context).brightness == Brightness.dark ? TextStyle(color: Colors.white) : TextStyle(color: Colors.black),
+              ),
               const SizedBox(
                 height: 25,
               ),
@@ -71,9 +82,10 @@ class DetailScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Text(Constant.RELEASE_DATE,
-                          style:
-                              TextStyle(color: Colors.black, fontSize: 18.00)),
+                       Text(Constant.RELEASE_DATE,
+                          style: Theme.of(context).brightness == Brightness.dark ? TextStyle(color: Colors.white,fontSize: 18.00) : TextStyle(color: Colors.black,fontSize: 18.00),
+
+                       ),
                       Center(
                         child: Text(movie.releaseDate.toString(),
                             style: const TextStyle(
@@ -85,11 +97,10 @@ class DetailScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const Text(Constant.RATING,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18.00,
-                          )),
+                       Text(Constant.RATING,
+                          style: Theme.of(context).brightness == Brightness.dark ? TextStyle(color: Colors.white,fontSize: 18.00) : TextStyle(color: Colors.black,fontSize: 18.00),
+
+                      ),
                       Center(
                         child: Text(movie.voteAverage.toString(),
                             style: const TextStyle(

@@ -19,10 +19,11 @@ class FavoriteScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.blue,
+        centerTitle: true,
 
         title: Text(
           Constant.favorite,
-          style: Styles.defaultTextTheme.headlineMedium,
+          // style: Styles.defaultTextTheme.headlineMedium,
         ),
       ),
       body: BlocBuilder<WishListCubit, WishlistState>(

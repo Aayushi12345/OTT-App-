@@ -45,7 +45,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-
           title: const Center(child: Text(Constant.SIGN_UP)),
         ),
         body: SafeArea(
@@ -55,262 +54,226 @@ class _RegisterScreenState extends State<RegisterScreen> {
               key: _formKey,
               child: SingleChildScrollView(
                 child: Column(children: [
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white),
-                    // padding: new EdgeInsets.all(20.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            textAlign: TextAlign.start,
-                            decoration: const InputDecoration(
-                              labelText: "Name",
-                              labelStyle: TextStyle(
-                                color: Colors.grey,
-                              ),
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(),
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.blue),
+                          textAlign: TextAlign.start,
+                          decoration: const InputDecoration(
+                            labelText: "Name",
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
                             ),
-                            onFieldSubmitted: (value) {
-                              //Validator
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return Constant.ENTER_VALID_NAME;
-                              }
-                              SharedPreferencesService.saveSingleString(
-                                  Constant.NAME, value);
-                              return null;
-                            },
+                            border: OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )),
+                            focusedBorder: OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )),
                           ),
+                          onFieldSubmitted: (value) {
+                            //Validator
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return Constant.ENTER_VALID_NAME;
+                            }
+                            SharedPreferencesService.saveSingleString(
+                                Constant.NAME, value);
+                            return null;
+                          },
                         ),
-                        Positioned(
-                          left: 10,
-                          top: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 3),
-                            color: Colors.white,
-                            child: Text(Constant.NAME_TEXT_INPUT),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white),
-                    // padding: new EdgeInsets.all(20.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            textAlign: TextAlign.start,
-                            decoration: const InputDecoration(
-                              labelText: "Email ID",
-                              labelStyle: TextStyle(
-                                color: Colors.grey,
-                              ),
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(),
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.blue),
+                          textAlign: TextAlign.start,
+                          decoration: const InputDecoration(
+                            labelText: "Email ID",
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
                             ),
-                            onFieldSubmitted: (value) {
-                              //Validator
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty ||
-                                  !RegExp(Constant.EMAIL_VALIDATION)
-                                      .hasMatch(value)) {
-                                return Constant.ENTER_VALID_EMAIL;
-                              }
-                              UserResponse user = UserResponse();
-                              user.email = value;
-                              SharedPreferencesService.saveSingleString(
-                                  Constant.EMAIL, value);
-                              // user.email. =value
-                              // SharedPreferencesService.saveString(
-                              //     Constant.EMAIL, value);
-                              return null;
-                            },
+                            border: OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )),
+                            focusedBorder: OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )),
                           ),
+                          onFieldSubmitted: (value) {
+                            //Validator
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty ||
+                                !RegExp(Constant.EMAIL_VALIDATION)
+                                    .hasMatch(value)) {
+                              return Constant.ENTER_VALID_EMAIL;
+                            }
+                            UserResponse user = UserResponse();
+                            user.email = value;
+                            SharedPreferencesService.saveSingleString(
+                                Constant.EMAIL, value);
+                            // user.email. =value
+                            // SharedPreferencesService.saveString(
+                            //     Constant.EMAIL, value);
+                            return null;
+                          },
                         ),
-                        Positioned(
-                          left: 10,
-                          top: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 3),
-                            color: Colors.white,
-                            child: Text(Constant.EMAIL_TEXT_INPUT),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white),
-                    // padding: new EdgeInsets.all(20.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            controller: _dobEditingController,
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.blue),
+                          controller: _dobEditingController,
 
-                            textAlign: TextAlign.start,
-                            decoration: const InputDecoration(
-                              labelText: Constant.DOB_TEXT_INPUT,
-                              labelStyle: TextStyle(
-                                color: Colors.grey,
-                              ),
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(),
+                          textAlign: TextAlign.start,
+                          decoration: const InputDecoration(
+                            labelText: Constant.DOB_TEXT_INPUT,
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
                             ),
-                            onFieldSubmitted: (value) {
-                              //Validator
-                            },
-                            onTap: () {
-                              TtnFlixDatePicker(context, date: (date) {
-                                _dobEditingController.text = date;
-                              }).show();
-                            },
-                            validator: (value) {
-                              if ( _dobEditingController.text!.isEmpty) {
-                                return Constant.ENTER_VALID_DOB;
-                              }
-                              SharedPreferencesService.saveSingleString(
-                                  Constant.DOB,  _dobEditingController.text);
-                              return null;
-                            },
+                            border: OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )
+                            ),
+                            focusedBorder: OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )),
                           ),
+                          onFieldSubmitted: (value) {
+                            //Validator
+                          },
+                          onTap: () {
+                            TtnFlixDatePicker(context, date: (date) {
+                              _dobEditingController.text = date;
+                            }).show();
+                          },
+                          validator: (value) {
+                            if ( _dobEditingController.text!.isEmpty) {
+                              return Constant.ENTER_VALID_DOB;
+                            }
+                            SharedPreferencesService.saveSingleString(
+                                Constant.DOB,  _dobEditingController.text);
+                            return null;
+                          },
                         ),
-                        Positioned(
-                          left: 10,
-                          top: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 3),
-                            color: Colors.white,
-                            child: Text(Constant.DOB_TEXT_INPUT),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white),
-                    // padding: new EdgeInsets.all(20.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 20, bottom: 20),
-                          child: TextFormField(
-                            obscureText: passwordVisible,
-                            textAlign: TextAlign.start,
-                            decoration: InputDecoration(
-                              labelText: Constant.PASSWORD_TEXT_INPUT,
-                              labelStyle: const TextStyle(
-                                color: Colors.grey,
-                              ),
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(),
-                              suffixIcon: IconButton(
-                                icon: Icon(passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      passwordVisible = !passwordVisible;
-                                    },
-                                  );
-                                },
-                              ),
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 20, bottom: 20),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.blue),
+                          obscureText: passwordVisible,
+                          textAlign: TextAlign.start,
+                          decoration: InputDecoration(
+                            labelText: Constant.PASSWORD_TEXT_INPUT,
+                            labelStyle: const TextStyle(
+                              color: Colors.grey,
                             ),
-                            onFieldSubmitted: (value) {},
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return Constant.ENTER_VALID_PASSWORD;
-                              }
-                              SharedPreferencesService.saveSingleString(
-                                  Constant.PASSWORD, value);
-                              return null;
-                            },
+                            border: const OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )),
+                            focusedBorder: const OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )),
+                            suffixIcon: IconButton(
+                              icon: Icon(passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                            ),
                           ),
+                          onFieldSubmitted: (value) {},
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return Constant.ENTER_VALID_PASSWORD;
+                            }
+                            SharedPreferencesService.saveSingleString(
+                                Constant.PASSWORD, value);
+                            return null;
+                          },
                         ),
-                        Positioned(
-                          left: 10,
-                          top: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 3),
-                            color: Colors.white,
-                            child: Text(Constant.PASSWORD_TEXT_INPUT),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+
+                    ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white),
-                    // padding: new EdgeInsets.all(20.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 20, bottom: 20),
-                          child: TextFormField(
-                            obscureText: passwordVisible,
-                            textAlign: TextAlign.start,
-                            decoration: InputDecoration(
-                              labelText: Constant.CONFIRM_PASSWORD,
-                              labelStyle: const TextStyle(
-                                color: Colors.grey,
-                              ),
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(),
-                              suffixIcon: IconButton(
-                                icon: Icon(passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      passwordVisible = !passwordVisible;
-                                    },
-                                  );
-                                },
-                              ),
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 20, bottom: 20),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.blue),
+                          obscureText: passwordVisible,
+                          textAlign: TextAlign.start,
+                          decoration: InputDecoration(
+                            labelText: Constant.CONFIRM_PASSWORD,
+                            labelStyle: const TextStyle(
+                              color: Colors.grey,
                             ),
-                            onFieldSubmitted: (value) {},
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return Constant.ENTER_VALID_PASSWORD;
-                              }
-                              return null;
-                            },
+                            border: const OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )),
+                            focusedBorder: const OutlineInputBorder(  borderSide: BorderSide(
+                                color: Colors.blue
+                            )),
+                            suffixIcon: IconButton(
+                              icon: Icon(passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                            ),
                           ),
+                          onFieldSubmitted: (value) {},
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return Constant.ENTER_VALID_PASSWORD;
+                            }
+                            return null;
+                          },
                         ),
-                        Positioned(
-                          left: 10,
-                          top: 3,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 3),
-                            color: Colors.white,
-                            child: const Text(
-                                Constant.CONFIRM_PASSWORD_TEXT_INPUT),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   // Female
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
-                        border: Border.all()),
+
+                        border: Border.all(color: Colors.white)),
+
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 15.0, top: 5, bottom: 5, right: 5),
 
                       // padding: const EdgeInsets.all(5.0),
                       child: DropdownButton(
+                        underline: const SizedBox(),
                         isExpanded: true,
                         // Initial Value
                         value: dropdownvalue,
@@ -322,7 +285,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         items: items.map((String items) {
                           return DropdownMenuItem(
                             value: items,
-                            child: Text(items),
+                            child: Text(items,style: const TextStyle(color: Colors.blue),),
                           );
                         }).toList(),
                         // After selecting the desired option,it will
@@ -343,28 +306,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        margin: EdgeInsets.only(top: 20, bottom: 20),
+                        margin: const EdgeInsets.only(top: 20, bottom: 20),
                         width: 300,
                         child: TextButton(
                           onPressed: () => _submit(),
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.blue,
-                              padding: EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(16.0),
                               foregroundColor: Colors.black,
-                              textStyle: TextStyle(fontSize: 20)),
-                          child: Text('   Register   '),
+                              textStyle: const TextStyle(fontSize: 20)),
+                          child: const Text('   Register   '),
                         ),
                       ),
                     ),
                   ),
 
-                  Container(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(Constant.LOGIN),
-                    ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(Constant.LOGIN,style: TextStyle(
+                      color: Colors.blue
+                    ),),
                   )
                 ]),
               ),
