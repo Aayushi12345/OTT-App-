@@ -11,6 +11,25 @@ class TtnFlixDatePicker {
 
   void show() async {
     var pickedDate = await showDatePicker(
+      builder: (context, child) {
+      return Theme(
+        data: Theme.of(context).copyWith(
+        colorScheme: const ColorScheme.light(
+        primary: Colors.blue, // header background color
+        onPrimary: Colors.black, // header text color
+        onSurface: Colors.blue, // body text color
+      ),
+
+    textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(
+    foregroundColor: Colors.red,
+    ),
+    ),
+        ),
+        child: child!,
+      );
+      },
+    // button text color,
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(DateTime.now().year - 100),

@@ -17,16 +17,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return  ChangeNotifierProvider(
-    //     create: (context) => FavoriteProvider(),
       return MaterialApp.router(
-      // routerDelegate: _appRouter.delegate(),
           routerConfig: _appRouter.config(),
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-    // routeInformationParser: _appRouter.defaultRouteParser()
-
-
     );
   }
 }

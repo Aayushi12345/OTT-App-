@@ -1,16 +1,22 @@
 import 'dart:ui';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ott_app/data/models/movie_model.dart';
+import 'package:ott_app/logic/cubit/movie_cubit.dart';
+import 'package:ott_app/logic/wishList/wishlist_cubit.dart';
+import 'package:ott_app/themes/spacing.dart';
 import 'package:ott_app/utils/constant.dart';
 
 @RoutePage()
 class DetailScreen extends StatelessWidget {
   final Results movie;
+  // final Function(Results)? onTapCallback;
 
   const DetailScreen({
     Key? key,
     required this.movie,
+     // this.onTapCallback
   }) : super(key: key);
 
   @override
@@ -74,9 +80,30 @@ class DetailScreen extends StatelessWidget {
               Text(movie.overview.toString(),
                 style: Theme.of(context).brightness == Brightness.dark ? TextStyle(color: Colors.white) : TextStyle(color: Colors.black),
               ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:[
+
+                      Text(""),
+
+                      InkWell(
+
+                        onTap: () {
+                          BlocProvider.of<MovieCubit>(context)
+                              .saveFavourite(movie);
+                          // BlocProvider.of<WishListCubit>(context)
+                          //     .saveFavourite(movie);
+                          // onTapCallback!(movie);
+                        },
+                        child: _buildFavoriteIcon( movie.isFavourite)
+                    ),
+          ]
+                  ),
               const SizedBox(
                 height: 25,
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -116,4 +143,15 @@ class DetailScreen extends StatelessWidget {
           ),
         ));
   }
+}
+
+Icon _buildFavoriteIcon(bool? isFavourite) {
+  return Icon(
+    isFavourite != null && isFavourite == true
+        ? Icons.favorite
+        : Icons.favorite_border,
+    color: isFavourite != null && isFavourite == true
+        ? Colors.red
+        : Colors.grey,
+  );
 }

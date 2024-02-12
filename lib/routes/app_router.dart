@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ott_app/presentation/screens/splash_screen.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
 
 @AutoRouterConfig()
@@ -16,10 +17,12 @@ class AppRouter extends $AppRouter {
             AutoRoute(page: ProfileAccountRoute.page),
           ],
         ),
-        AutoRoute(page: LoginRoute.page,initial: true),
+        AutoRoute(page: LoginRoute.page),
         AutoRoute(page: RegisterRoute.page),
         AutoRoute(page: DetailRoute.page),
         AutoRoute(page: UpdateDobRoute.page),
-    AutoRoute(page: UpdateNameRoute.page),
+        AutoRoute(page: UpdateNameRoute.page),
+        AutoRoute(page: OnboardingRoute.page),
+        AutoRoute(page: SplashRoute.page, initial: true)
       ];
 }

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
 import 'package:ott_app/themes/styles.dart';
@@ -19,6 +20,13 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = "";
 
   void _submit() async {
+
+    //get
+
+//     String getCurrentTime =DateFormat('hh:mm').format(DateTime.now());
+// debugPrint("time"+getCurrentTime);
+
+
     final isValid = _formKey.currentState!.validate();
     String? emailValue =
         await SharedPreferencesService.getSingleString(Constant.EMAIL);
@@ -35,6 +43,10 @@ class _LoginScreenState extends State<LoginScreen> {
       var snackBar = const SnackBar(content: Text('Create A aacount'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+    String getCurrentTime =  TimeOfDay.fromDateTime(DateTime.now()).format(context).trim();
+    debugPrint("time=="+getCurrentTime);
+    SharedPreferencesService.saveSingleString(
+        Constant.TIMMER, getCurrentTime);
     _formKey.currentState!.save();
   }
 
@@ -48,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.blue,
 
           title: const Center(child: Text(Constant.LOGIN)),

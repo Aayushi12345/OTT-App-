@@ -14,6 +14,11 @@ class Constant {
   static const String EMAIL = "email";
   static const String PASSWORD = "password";
   static const String NAME = "name";
+  static const String TIMMER = "timmer";
+  static const String LOGOUTTIME = "logOutTime";
+
+  static const String ONBOARDING = "onboarding";
+
   static const String DOB = "dob";
   static const String GENDAR = "gendar";
 
