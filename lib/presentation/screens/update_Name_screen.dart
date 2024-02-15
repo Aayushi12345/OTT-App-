@@ -6,10 +6,13 @@ import 'package:ott_app/utils/constant.dart';
 
 @RoutePage()
 class UpdateNameScreen extends StatelessWidget {
+  final String name ;
   final TextEditingController _nameEditingController = TextEditingController();
 
+   UpdateNameScreen({super.key, required this.name});
   @override
   Widget build(BuildContext context) {
+
     final _formKey = GlobalKey<FormState>();
     void _submit() async {
       SharedPreferencesService.saveSingleString(
@@ -45,7 +48,7 @@ class UpdateNameScreen extends StatelessWidget {
                       child: Stack(
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.only(top: 20),
+                            margin: const EdgeInsets.only(top: 20),
                             child: TextFormField(
                               style: const TextStyle(color: Colors.blue),
                               controller: _nameEditingController,
@@ -71,41 +74,32 @@ class UpdateNameScreen extends StatelessWidget {
                               },
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return Constant.ENTER_VALID_NAME;
+                                  return name;
                                 }
                                 user.name = value.toString();
                                 return null;
                               },
                             ),
                           ),
-                          // Positioned(
-                          //   left: 10,
-                          //   top: 3,
-                          //   child: Container(
-                          //     padding:
-                          //         const EdgeInsets.symmetric(horizontal: 3),
-                          //     color: Colors.white,
-                          //     child: const Text(Constant.NAME_TEXT_INPUT),
-                          //   ),
-                          // ),
+
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     SizedBox(
 
                       child: Center(
-                        child: Container(
+                        child: SizedBox(
                           width: 300,
                           child: TextButton(
                             onPressed: () => _submit(),
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.blue,
-                                padding: EdgeInsets.all(16.0),
+                                padding: const EdgeInsets.all(16.0),
                                 foregroundColor: Colors.black,
-                                textStyle: TextStyle(fontSize: 20)),
+                                textStyle: const TextStyle(fontSize: 20)),
                             child: Text('   Update Name   '),
                           ),
                         ),

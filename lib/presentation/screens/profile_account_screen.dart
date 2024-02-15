@@ -101,7 +101,7 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                                 GestureDetector(
                                   onTap: () async {
                                     var updatedName = await context
-                                        .pushRoute(UpdateNameRoute());
+                                        .pushRoute(UpdateNameRoute(name:user.name.toString()));
                                     MyUserData();
                                   },
                                   // Image tapped
@@ -140,10 +140,6 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
             const SizedBox(
               height: 10,
             ),
-            // const Divider(
-            //   color: Colors.grey,
-            //   thickness: 1,
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -188,22 +184,10 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
             const SizedBox(
               height: 10,
             ),
-            // GestureDetector(
-            //   onTap: ClearData(),
-            //   child: Text("Logout",
-            //       style: const TextStyle(
-            //           color: Colors.blue,
-            //           fontSize: 20.00,
-            //           fontWeight: FontWeight.bold)),
-            // ),
             const SizedBox(
               height: 10,
             ),
 
-            // const Divider(
-            //   color: Colors.grey,
-            //   thickness: 1,
-            // ),
             const Text("",
                 style: TextStyle(
                     color: Colors.blue,

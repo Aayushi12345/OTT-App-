@@ -66,7 +66,7 @@ abstract class $AppRouter extends _i12.RootStackRouter {
     LoginRoute.name: (routeData) {
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.LoginScreen(),
+        child: const _i5.LoginScreen(),
       );
     },
     OnboardingRoute.name: (routeData) {
@@ -100,9 +100,13 @@ abstract class $AppRouter extends _i12.RootStackRouter {
       );
     },
     UpdateNameRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdateNameRouteArgs>();
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.UpdateNameScreen(),
+        child: _i11.UpdateNameScreen(
+          key: args.key,
+          name: args.name,
+        ),
       );
     },
   };
@@ -309,14 +313,38 @@ class UpdateDobRoute extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.UpdateNameScreen]
-class UpdateNameRoute extends _i12.PageRouteInfo<void> {
-  const UpdateNameRoute({List<_i12.PageRouteInfo>? children})
-      : super(
+class UpdateNameRoute extends _i12.PageRouteInfo<UpdateNameRouteArgs> {
+  UpdateNameRoute({
+    _i13.Key? key,
+    required String name,
+    List<_i12.PageRouteInfo>? children,
+  }) : super(
           UpdateNameRoute.name,
+          args: UpdateNameRouteArgs(
+            key: key,
+            name: name,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'UpdateNameRoute';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i12.PageInfo<UpdateNameRouteArgs> page =
+      _i12.PageInfo<UpdateNameRouteArgs>(name);
+}
+
+class UpdateNameRouteArgs {
+  const UpdateNameRouteArgs({
+    this.key,
+    required this.name,
+  });
+
+  final _i13.Key? key;
+
+  final String name;
+
+  @override
+  String toString() {
+    return 'UpdateNameRouteArgs{key: $key, name: $name}';
+  }
 }

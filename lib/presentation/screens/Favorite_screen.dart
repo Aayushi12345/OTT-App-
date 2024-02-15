@@ -21,7 +21,7 @@ class FavoriteScreen extends StatelessWidget {
         backgroundColor: Colors.blue,
         centerTitle: true,
 
-        title: Text(
+        title: const Text(
           Constant.favorite,
           // style: Styles.defaultTextTheme.headlineMedium,
         ),

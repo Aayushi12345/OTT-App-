@@ -36,69 +36,56 @@ class UpdateDobScreen extends StatelessWidget {
             child: Form(
           key: _formKey,
           child: Padding(
-              padding: EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(15.0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      // padding: new EdgeInsets.all(20.0),
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            child: TextFormField(
-                              style: const TextStyle(color: Colors.blue),
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          margin: const EdgeInsets.only(top: 20),
+                          child: TextFormField(
+                            style: const TextStyle(color: Colors.blue),
 
-                              controller: _dobEditingController,
-                              textAlign: TextAlign.start,
-                              decoration: const InputDecoration(
-                                labelText: Constant.DOB_TEXT_INPUT,
-                                labelStyle: TextStyle(
-                                  color: Colors.blue,
-                                ),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.blue
-                                    )
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.blue
-                                    )
-                                ),
+                            controller: _dobEditingController,
+                            textAlign: TextAlign.start,
+                            decoration: const InputDecoration(
+                              labelText: Constant.DOB_TEXT_INPUT,
+                              labelStyle: TextStyle(
+                                color: Colors.blue,
                               ),
-                              onFieldSubmitted: (value) {
-                                //Validator
-                              },
-                              onTap: () {
-                                TtnFlixDatePicker(context, date: (date) {
-                                  _dobEditingController.text = date;
-                                }).show();
-                              },
-                              validator: (value) {
-                                if (_dobEditingController.text!.isEmpty
-                                   ) {
-                                  return Constant.ENTER_VALID_DOB;
-                                }
-                                user.dob = value.toString();
-                                return null;
-                              },
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.blue
+                                  )
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.blue
+                                  )
+                              ),
                             ),
+                            onFieldSubmitted: (value) {
+                              //Validator
+                            },
+                            onTap: () {
+                              TtnFlixDatePicker(context, date: (date) {
+                                _dobEditingController.text = date;
+                              }).show();
+                            },
+                            validator: (value) {
+                              if (_dobEditingController.text!.isEmpty
+                                 ) {
+                                return Constant.ENTER_VALID_DOB;
+                              }
+                              user.dob = value.toString();
+                              return null;
+                            },
                           ),
-                          // Positioned(
-                          //   left: 10,
-                          //   top: 3,
-                          //   child: Container(
-                          //     padding:
-                          //         const EdgeInsets.symmetric(horizontal: 3),
-                          //     color: Colors.white,
-                          //     child: const Text(Constant.DOB_TEXT_INPUT),
-                          //   ),
-                          // ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     SizedBox(

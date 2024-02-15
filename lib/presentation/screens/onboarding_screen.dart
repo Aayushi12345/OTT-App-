@@ -46,33 +46,6 @@ class OnboardingScreen extends StatelessWidget {
           ),
         ),
 
-      // ],
-      //
-      //   child:
-      //     // child: Center(
-      //     //   child: SizedBox(
-      //     //     child: Container(
-      //     //       width: 300,
-      //     //       child: TextButton(
-      //     //         onPressed: () => {
-      //     //           SharedPreferencesService.saveBool(
-      //     //               Constant.ONBOARDING, true),
-      //     //           context.router.push(LoginRoute()),
-      //     //         },
-      //     //         style: TextButton.styleFrom(
-      //     //             backgroundColor: Colors.blue,
-      //     //             padding: const EdgeInsets.all(16.0),
-      //     //             foregroundColor: Colors.black,
-      //     //             textStyle: const TextStyle(fontSize: 20)),
-      //     //         child: const Text('   Lets Start   '),
-      //     //       ),
-      //     //     ),
-      //     //   ),
-      //     // ),
-      //     // SizedBox(
-      //     //   height: 50,
-      //     // )
-
     ]
       ),
     );

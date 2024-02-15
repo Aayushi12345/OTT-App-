@@ -64,23 +64,6 @@ class _SplashScreenState extends State<SplashScreen> {
           }
         context.router.push(HomeRoute());
       }
-
-
-    // if(passwordValue!=null)
-    // {
-    //   context.router.push(HomeRoute());
-    // }
-    // else if(onBoarding==true){
-    //   context.router.push(const LoginRoute());
-    // }
-    // else if(logOutTIME==true){
-    //   context.router.push(const LoginRoute());
-    // }
-    // else
-    // {
-    //   context.router.push(const OnboardingRoute());
-    //
-    // }
   }
   @override
   Widget build(BuildContext context) {
@@ -94,20 +77,6 @@ class _SplashScreenState extends State<SplashScreen> {
           height: double.infinity,
 
         ),
-
-      // decoration: new BoxDecoration(color: Colors.blue),
-      //               child: new Center(
-      //                 child: new Text("OTT",style: TextStyle
-      //                   (
-      //                   color: Colors.red,
-      //                   fontSize: 25,
-      //
-      //                 ),),
-      //               ),
-                  // ),
-
-
-                // ])),
 
     );
   }

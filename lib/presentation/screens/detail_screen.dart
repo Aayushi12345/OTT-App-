@@ -11,12 +11,10 @@ import 'package:ott_app/utils/constant.dart';
 @RoutePage()
 class DetailScreen extends StatelessWidget {
   final Results movie;
-  // final Function(Results)? onTapCallback;
 
   const DetailScreen({
     Key? key,
     required this.movie,
-     // this.onTapCallback
   }) : super(key: key);
 
   @override
@@ -68,10 +66,6 @@ class DetailScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold) : const TextStyle(color: Colors.black, fontSize: 16.00,
                 fontWeight: FontWeight.bold),
 
-                  // style: TextStyle(
-                  //     color: Colors.blue,
-                  //     fontSize: 16.00,
-                  //     fontWeight: FontWeight.bold)
               ),
                   const SizedBox(
                     height: 10,
@@ -92,9 +86,6 @@ class DetailScreen extends StatelessWidget {
                         onTap: () {
                           BlocProvider.of<MovieCubit>(context)
                               .saveFavourite(movie);
-                          // BlocProvider.of<WishListCubit>(context)
-                          //     .saveFavourite(movie);
-                          // onTapCallback!(movie);
                         },
                         child: _buildFavoriteIcon( movie.isFavourite)
                     ),

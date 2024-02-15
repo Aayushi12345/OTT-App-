@@ -8,6 +8,8 @@ import 'package:ott_app/utils/constant.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -20,12 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = "";
 
   void _submit() async {
-
-    //get
-
-//     String getCurrentTime =DateFormat('hh:mm').format(DateTime.now());
-// debugPrint("time"+getCurrentTime);
-
 
     final isValid = _formKey.currentState!.validate();
     String? emailValue =
@@ -44,7 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
     String getCurrentTime =  TimeOfDay.fromDateTime(DateTime.now()).format(context).trim();
-    debugPrint("time=="+getCurrentTime);
     SharedPreferencesService.saveSingleString(
         Constant.TIMMER, getCurrentTime);
     _formKey.currentState!.save();
@@ -109,9 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (value!.isEmpty ||
                                 !RegExp(Constant.EMAIL_VALIDATION)
                                     .hasMatch(value)) {
-                              // set username(String value) => SharedPreferencesService_saveData(_kUsernameKey, value);
-
-                              // sharedPreferences.sa
                               return Constant.ENTER_VALID_EMAIL;
                             }
                             // user.email.toString() =value.toString()

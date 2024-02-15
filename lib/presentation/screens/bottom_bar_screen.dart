@@ -26,8 +26,8 @@ class _BottomTabScreen extends State<BottomTabScreen> {
         create: (context) => MovieCubit(Repository())..fetchMoviesData(1),
         child: HomeScreen()),
     BlocProvider(
-        create: (context) => WishListCubit()..fetchFavouritesData(), child: FavoriteScreen()),
-    ProfileAccountScreen()
+        create: (context) => WishListCubit()..fetchFavouritesData(), child: const FavoriteScreen()),
+    const ProfileAccountScreen()
   ];
   void _onItemTapped(int index) {
     setState(() {
