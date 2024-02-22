@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ott_app/data/models/user_model.dart';
@@ -11,6 +13,9 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 final TextEditingController _dobEditingController = TextEditingController();
+final TextEditingController _nameEditingController = TextEditingController();
+final TextEditingController _emailEditingController = TextEditingController();
+final TextEditingController _passwordEditingController = TextEditingController();
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool passwordVisible = false;
@@ -30,7 +35,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (!isValid) {
       return;
     }
-    Navigator.pop(context);
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailEditingController.text,
+        password: _passwordEditingController.text).then((value)     {
+          debugPrint("Create a new Account");
+          Navigator.pop(context);}
+    ).onError((error, stackTrace)  {
+
+      debugPrint("error${error.toString()}");
+    });
     _formKey.currentState!.save();
   }
 
@@ -60,6 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         margin: const EdgeInsets.only(top: 20),
                         child: TextFormField(
                           style: const TextStyle(color: Colors.blue),
+                          controller: _nameEditingController,
                           textAlign: TextAlign.start,
                           decoration: const InputDecoration(
                             labelText: "Name",
@@ -77,11 +90,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             //Validator
                           },
                           validator: (value) {
-                            if (value!.isEmpty) {
+                            if (_nameEditingController.text!.isEmpty) {
                               return Constant.ENTER_VALID_NAME;
                             }
                             SharedPreferencesService.saveSingleString(
-                                Constant.NAME, value);
+                                Constant.NAME, _nameEditingController.text);
                             return null;
                           },
                         ),
@@ -94,6 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         margin: const EdgeInsets.only(top: 20),
                         child: TextFormField(
                           style: const TextStyle(color: Colors.blue),
+                          controller: _emailEditingController,
                           textAlign: TextAlign.start,
                           decoration: const InputDecoration(
                             labelText: "Email ID",
@@ -111,15 +125,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             //Validator
                           },
                           validator: (value) {
-                            if (value!.isEmpty ||
+                            if (_emailEditingController.text!.isEmpty ||
                                 !RegExp(Constant.EMAIL_VALIDATION)
-                                    .hasMatch(value)) {
+                                    .hasMatch(_emailEditingController.text)) {
                               return Constant.ENTER_VALID_EMAIL;
                             }
                             UserResponse user = UserResponse();
-                            user.email = value;
+                            user.email = _emailEditingController.text;
                             SharedPreferencesService.saveSingleString(
-                                Constant.EMAIL, value);
+                                Constant.EMAIL, _emailEditingController.text);
                             // user.email. =value
                             // SharedPreferencesService.saveString(
                             //     Constant.EMAIL, value);
@@ -177,6 +191,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         margin: const EdgeInsets.only(top: 20, bottom: 20),
                         child: TextFormField(
                           style: const TextStyle(color: Colors.blue),
+                          controller: _passwordEditingController,
                           obscureText: passwordVisible,
                           textAlign: TextAlign.start,
                           decoration: InputDecoration(
@@ -205,11 +220,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           onFieldSubmitted: (value) {},
                           validator: (value) {
-                            if (value!.isEmpty) {
+                            if (_passwordEditingController.text!.isEmpty) {
                               return Constant.ENTER_VALID_PASSWORD;
                             }
                             SharedPreferencesService.saveSingleString(
-                                Constant.PASSWORD, value);
+                                Constant.PASSWORD, _passwordEditingController.text);
                             return null;
                           },
                         ),

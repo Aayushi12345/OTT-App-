@@ -6,6 +6,7 @@ class ServiceLocatorImpl implements ServiceLocator {
 
   @override
   void initialise() {
+
     if (!isRegistered<ServiceLocator>()) {
       _serviceLocator
           .registerSingleton<ServiceLocator>(ServiceLocator.ttnServiceLocator);

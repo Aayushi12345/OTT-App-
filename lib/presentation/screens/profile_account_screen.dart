@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ott_app/data/models/user_model.dart';
@@ -184,6 +185,17 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
             const SizedBox(
               height: 10,
             ),
+                GestureDetector(
+                  onTap: (){
+                    FirebaseAuth.instance.signOut();
+                    context.pushRoute(const LoginRoute());
+                  },
+                  child: const Text("LogOut",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 18.00,
+                          fontWeight: FontWeight.bold)),
+                ),
             const SizedBox(
               height: 10,
             ),

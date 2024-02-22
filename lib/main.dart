@@ -8,10 +8,10 @@ import 'package:ott_app/themes/app_theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppModule().initialise();
-   Firebase.initializeApp();
 
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   final _appRouter =AppRouter();

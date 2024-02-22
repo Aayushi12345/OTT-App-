@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
@@ -20,28 +21,25 @@ class _LoginScreenState extends State<LoginScreen> {
   var isLoading = false;
   String email = "";
   String password = "";
-
+  final TextEditingController _emailEditingController = TextEditingController();
+  final TextEditingController _passwordEditingController = TextEditingController();
   void _submit() async {
 
     final isValid = _formKey.currentState!.validate();
-    String? emailValue =
-        await SharedPreferencesService.getSingleString(Constant.EMAIL);
-    String? passwordValue =
-        await SharedPreferencesService.getSingleString(Constant.PASSWORD);
 
     if (!isValid) {
       return;
     }
-    if (password == passwordValue) {
       debugPrint(email);
-      context.router.push(HomeRoute());
-    } else {
-      var snackBar = const SnackBar(content: Text('Create A aacount'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
+      FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailEditingController.text,
+          password: _passwordEditingController.text).then((value){
+        context.router.push(HomeRoute());
+
+      });
     String getCurrentTime =  TimeOfDay.fromDateTime(DateTime.now()).format(context).trim();
     SharedPreferencesService.saveSingleString(
         Constant.TIMMER, getCurrentTime);
+
     _formKey.currentState!.save();
   }
 
@@ -79,6 +77,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: TextFormField(
+                          controller: _emailEditingController,
+
                           style: const TextStyle(color: Colors.blue),
                           textAlign: TextAlign.start,
                           decoration: const InputDecoration(
@@ -101,13 +101,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             //Validator
                           },
                           validator: (value) {
-                            if (value!.isEmpty ||
+                            if (_emailEditingController.text!.isEmpty ||
                                 !RegExp(Constant.EMAIL_VALIDATION)
-                                    .hasMatch(value)) {
+                                    .hasMatch(_emailEditingController.text)) {
                               return Constant.ENTER_VALID_EMAIL;
                             }
                             // user.email.toString() =value.toString()
-                            email = value;
+                            email = _emailEditingController.text;
                             return null;
                           },
                         ),
@@ -119,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         margin: const EdgeInsets.only(top: 20, bottom: 20),
                         child: TextFormField(
+                          controller: _passwordEditingController,
                           style: const TextStyle(color: Colors.blue),
                           obscureText: passwordVisible,
                           textAlign: TextAlign.start,
@@ -152,10 +153,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onFieldSubmitted: (value) {},
                           validator: (value) {
-                            if (value!.isEmpty) {
+                            if (_passwordEditingController.text!.isEmpty) {
                               return Constant.ENTER_VALID_PASSWORD;
                             }
-                            password = value;
+                            password = _passwordEditingController.text;
                             return null;
                           },
                         ),
