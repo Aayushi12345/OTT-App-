@@ -1,21 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ott_app/data/models/user_model.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/utils/constant.dart';
 import 'package:ott_app/utils/ttn_flix_date_picker.dart';
+
 @RoutePage()
 class RegisterScreen extends StatefulWidget {
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
+
 final TextEditingController _dobEditingController = TextEditingController();
 final TextEditingController _nameEditingController = TextEditingController();
 final TextEditingController _emailEditingController = TextEditingController();
-final TextEditingController _passwordEditingController = TextEditingController();
+final TextEditingController _passwordEditingController =
+    TextEditingController();
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool passwordVisible = false;
@@ -29,19 +30,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
   ];
 
   void _submit() async {
-    String? retrievedValue = await SharedPreferencesService.getSingleString(Constant.EMAIL);
+    String? retrievedValue =
+        await SharedPreferencesService.getSingleString(Constant.EMAIL);
     debugPrint(retrievedValue);
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
     }
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailEditingController.text,
-        password: _passwordEditingController.text).then((value)     {
-          debugPrint("Create a new Account");
-          Navigator.pop(context);}
-    ).onError((error, stackTrace)  {
-
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: _emailEditingController.text,
+            password: _passwordEditingController.text)
+        .then((value) {
+      debugPrint("Create a new Account");
+      Navigator.pop(context);
+    }).onError((error, stackTrace) {
+    SnackBar(content: Text("error${error.toString()}"));
       debugPrint("error${error.toString()}");
+
     });
     _formKey.currentState!.save();
   }
@@ -79,12 +85,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             labelStyle: TextStyle(
                               color: Colors.grey,
                             ),
-                            border: OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )),
-                            focusedBorder: OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
                           ),
                           onFieldSubmitted: (value) {
                             //Validator
@@ -114,12 +118,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             labelStyle: TextStyle(
                               color: Colors.grey,
                             ),
-                            border: OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )),
-                            focusedBorder: OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
                           ),
                           onFieldSubmitted: (value) {
                             //Validator
@@ -150,20 +152,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: TextFormField(
                           style: const TextStyle(color: Colors.blue),
                           controller: _dobEditingController,
-
                           textAlign: TextAlign.start,
                           decoration: const InputDecoration(
                             labelText: Constant.DOB_TEXT_INPUT,
                             labelStyle: TextStyle(
                               color: Colors.grey,
                             ),
-                            border: OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )
-                            ),
-                            focusedBorder: OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
                           ),
                           onFieldSubmitted: (value) {
                             //Validator
@@ -174,11 +172,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }).show();
                           },
                           validator: (value) {
-                            if ( _dobEditingController.text!.isEmpty) {
+                            if (_dobEditingController.text!.isEmpty) {
                               return Constant.ENTER_VALID_DOB;
                             }
                             SharedPreferencesService.saveSingleString(
-                                Constant.DOB,  _dobEditingController.text);
+                                Constant.DOB, _dobEditingController.text);
                             return null;
                           },
                         ),
@@ -199,12 +197,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             labelStyle: const TextStyle(
                               color: Colors.grey,
                             ),
-                            border: const OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )),
-                            focusedBorder: const OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )),
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
                             suffixIcon: IconButton(
                               icon: Icon(passwordVisible
                                   ? Icons.visibility
@@ -224,12 +220,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return Constant.ENTER_VALID_PASSWORD;
                             }
                             SharedPreferencesService.saveSingleString(
-                                Constant.PASSWORD, _passwordEditingController.text);
+                                Constant.PASSWORD,
+                                _passwordEditingController.text);
                             return null;
                           },
                         ),
                       ),
-
                     ],
                   ),
                   Stack(
@@ -245,12 +241,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             labelStyle: const TextStyle(
                               color: Colors.grey,
                             ),
-                            border: const OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )),
-                            focusedBorder: const OutlineInputBorder(  borderSide: BorderSide(
-                                color: Colors.blue
-                            )),
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
                             suffixIcon: IconButton(
                               icon: Icon(passwordVisible
                                   ? Icons.visibility
@@ -279,9 +273,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
-
                         border: Border.all(color: Colors.white)),
-
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 15.0, top: 5, bottom: 5, right: 5),
@@ -300,7 +292,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         items: items.map((String items) {
                           return DropdownMenuItem(
                             value: items,
-                            child: Text(items,style: const TextStyle(color: Colors.blue),),
+                            child: Text(
+                              items,
+                              style: const TextStyle(color: Colors.blue),
+                            ),
                           );
                         }).toList(),
                         // After selecting the desired option,it will
@@ -340,9 +335,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: const Text(Constant.LOGIN,style: TextStyle(
-                      color: Colors.blue
-                    ),),
+                    child: const Text(
+                      Constant.LOGIN,
+                      style: TextStyle(color: Colors.blue),
+                    ),
                   )
                 ]),
               ),

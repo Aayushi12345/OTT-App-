@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +7,7 @@ import 'package:ott_app/data/models/user_model.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
 import 'package:ott_app/utils/constant.dart';
-
+import 'package:universal_io/io.dart';
 @RoutePage()
 class ProfileAccountScreen extends StatefulWidget {
   const ProfileAccountScreen({super.key});

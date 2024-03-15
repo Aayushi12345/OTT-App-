@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/routes/app_router.gr.dart';
-import 'package:ott_app/themes/styles.dart';
 import 'package:ott_app/utils/constant.dart';
 
 @RoutePage()
@@ -22,23 +20,31 @@ class _LoginScreenState extends State<LoginScreen> {
   String email = "";
   String password = "";
   final TextEditingController _emailEditingController = TextEditingController();
-  final TextEditingController _passwordEditingController = TextEditingController();
-  void _submit() async {
+  final TextEditingController _passwordEditingController =
+      TextEditingController();
 
+  void _submit() async {
     final isValid = _formKey.currentState!.validate();
 
     if (!isValid) {
       return;
     }
-      debugPrint(email);
-      FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailEditingController.text,
-          password: _passwordEditingController.text).then((value){
-        context.router.push(HomeRoute());
+    debugPrint(email);
 
-      });
-    String getCurrentTime =  TimeOfDay.fromDateTime(DateTime.now()).format(context).trim();
-    SharedPreferencesService.saveSingleString(
-        Constant.TIMMER, getCurrentTime);
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: _emailEditingController.text,
+            password: _passwordEditingController.text)
+        .then((value) {
+      context.router.push(HomeRoute());
+    }).onError((error, stackTrace){
+      SnackBar(content: Text("error${error.toString()}"));
+      debugPrint("error${error.toString()}");
+
+    });
+    String getCurrentTime =
+        TimeOfDay.fromDateTime(DateTime.now()).format(context).trim();
+    SharedPreferencesService.saveSingleString(Constant.TIMMER, getCurrentTime);
 
     _formKey.currentState!.save();
   }
@@ -55,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.blue,
-
           title: const Center(child: Text(Constant.LOGIN)),
         ),
         body: SafeArea(
@@ -78,7 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         margin: const EdgeInsets.only(top: 20),
                         child: TextFormField(
                           controller: _emailEditingController,
-
                           style: const TextStyle(color: Colors.blue),
                           textAlign: TextAlign.start,
                           decoration: const InputDecoration(
@@ -87,15 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.grey,
                             ),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.blue
-                              )
-                            ),
+                                borderSide: BorderSide(color: Colors.blue)),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.blue
-                              )
-                            ),
+                                borderSide: BorderSide(color: Colors.blue)),
                           ),
                           onFieldSubmitted: (value) {
                             //Validator
@@ -129,15 +127,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.grey,
                             ),
                             border: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.blue
-                                )
-                            ),
+                                borderSide: BorderSide(color: Colors.blue)),
                             focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.blue
-                                )
-                            ),
+                                borderSide: BorderSide(color: Colors.blue)),
                             suffixIcon: IconButton(
                               icon: Icon(passwordVisible
                                   ? Icons.visibility
@@ -183,20 +175,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: () {
                         context.router.push(const RegisterRoute());
                       },
-                      child: const Text(Constant.REGISTER_NEW_ACCOUNT,style: TextStyle(
-                        color: Colors.blue
-                      ),),
+                      child: const Text(
+                        Constant.REGISTER_NEW_ACCOUNT,
+                        style: TextStyle(color: Colors.blue),
+                      ),
                     ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 20),
                     child: GestureDetector(
                       onTap: () {
-                        context.router.push( HomeRoute());
+                        context.router.push(HomeRoute());
                       },
-                      child: const Text("Skip",style: TextStyle(
-                          color: Colors.blue
-                      )),
+                      child: const Text("Skip",
+                          style: TextStyle(color: Colors.blue)),
                     ),
                   )
                 ]),

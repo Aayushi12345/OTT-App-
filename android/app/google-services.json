@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "933926118652",
-    "project_id": "ttnflix",
-    "storage_bucket": "ttnflix.appspot.com"
+    "project_number": "531533842476",
+    "project_id": "ttnflix-f7486",
+    "storage_bucket": "ttnflix-f7486.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:933926118652:android:4986511cde73c1a8dc2379",
+        "mobilesdk_app_id": "1:531533842476:android:86b85968d7e62cd2732989",
         "android_client_info": {
           "package_name": "com.example.ott_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAYz6OB5ECj4ClooFlyjMwTEfbthq0iQfg"
+          "current_key": "AIzaSyCKioaFBK0UYXZFJqfxY0xnZeW_YOZJZug"
         }
       ],
       "services": {

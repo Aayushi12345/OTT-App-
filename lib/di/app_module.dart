@@ -4,7 +4,7 @@ import 'package:ott_app/data/network/api_client.dart';
 import 'package:ott_app/data/repositories%20/api/api_service.dart';
 import 'package:ott_app/di/service_locator.dart';
 import 'package:ott_app/di/service_locator_impl.dart';
-import '../firebase_options.dart';
+import 'package:ott_app/firebase_options.dart';
 import '../preference/shared_preferences.dart';
 
 class AppModule {

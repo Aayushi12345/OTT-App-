@@ -9,7 +9,9 @@ import 'package:ott_app/logic/cubit/movie_state.dart';
 import 'package:ott_app/preference/shared_preferences.dart';
 import 'package:ott_app/utils/constant.dart';
 
+
 class MovieCubit extends Cubit<MovieState> {
+
   final Repository _repository;
   Timer? _timer;
 
