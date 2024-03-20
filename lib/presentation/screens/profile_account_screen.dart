@@ -131,7 +131,12 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                     left: 70,
                     child: IconButton(
                       onPressed: () {
-                        showImagePickerOption(context);
+                        if(kIsWeb)
+                        {
+                          _pickImageFromWeb();
+                        }else {
+                          showImagePickerOption(context);
+                        }
                       },
                       icon: const Icon(Icons.add_a_photo),
                     )),
@@ -223,13 +228,10 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        if(kIsWeb)
-                          {
-                            _pickImageFromWeb();
-                          }
-                        else {
+
+
                           _pickImageFromGallery();
-                        }
+
                       },
                       child: const SizedBox(
                           child: Column(
@@ -246,13 +248,9 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        if(kIsWeb)
-                        {
-                          _pickImageFromWeb();
-                        }
-                        else {
+
                           _pickImageFromCamera();
-                        }
+
                       },
                       child: const SizedBox(
                           child: Column(
@@ -293,7 +291,7 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
       _image = f;
       // _image = File(returnImage.path).readAsBytesSync();
     });
-    Navigator.of(context).pop();
+    // Navigator.of(context).pop();
   }
 
   Future _pickImageFromCamera() async {

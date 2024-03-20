@@ -54,7 +54,7 @@ class UpdateNameScreen extends StatelessWidget {
                           child: Stack(
                             children: <Widget>[
                               Container(
-                                margin: const EdgeInsets.only(top: 100),
+                                margin: const EdgeInsets.only(top: 10),
                                 child: TextFormField(
                                   style: const TextStyle(color: Colors.blue),
                                   controller: _nameEditingController,
