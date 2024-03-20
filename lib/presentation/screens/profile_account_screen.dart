@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ott_app/data/models/user_model.dart';
@@ -222,7 +223,13 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        _pickImageFromGallery();
+                        if(kIsWeb)
+                          {
+                            _pickImageFromWeb();
+                          }
+                        else {
+                          _pickImageFromGallery();
+                        }
                       },
                       child: const SizedBox(
                           child: Column(
@@ -239,7 +246,13 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        _pickImageFromCamera();
+                        if(kIsWeb)
+                        {
+                          _pickImageFromWeb();
+                        }
+                        else {
+                          _pickImageFromCamera();
+                        }
                       },
                       child: const SizedBox(
                           child: Column(
@@ -267,6 +280,18 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
     setState(() {
       selectedImage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
+    });
+    Navigator.of(context).pop();
+  }
+  Future _pickImageFromWeb() async {
+    XFile? returnImage =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnImage == null) return;
+    var f = await returnImage.readAsBytes();
+    setState(() {
+      selectedImage = File(returnImage.path);
+      _image = f;
+      // _image = File(returnImage.path).readAsBytesSync();
     });
     Navigator.of(context).pop();
   }

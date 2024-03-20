@@ -30,7 +30,6 @@ class Constant {
   static const String ENTER_VALID_DOB = "Enter a valid Date of Birth!";
   static const String ENTER_VALID_GENDAR = "Enter a valid gendar!";
 
-
   static const String SIGN_UP = "Sign-Up";
   static const String REGISTER_NEW_ACCOUNT = "Create new Account";
   static const String MALE = "Male";
@@ -50,7 +49,7 @@ class Constant {
   static const String PROFILE = "Profile";
   static const String FAVORITE = "Favorite";
   static const String favorite = "Favorite";
-
+  static const String SKIP = "Skip";
 
 }
   class ContanierSize {
