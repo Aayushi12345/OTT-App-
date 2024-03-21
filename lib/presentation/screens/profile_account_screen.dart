@@ -59,6 +59,7 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("ImageUrl$_image");
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -78,6 +79,7 @@ class _ProfileAccountScreenState extends State<ProfileAccountScreen> {
                     _image != null
                         ? CircleAvatar(
                             radius: 50, // Image radius
+
                             backgroundImage: MemoryImage(_image!))
                         : CircleAvatar(
                             radius: 50, // Image radius

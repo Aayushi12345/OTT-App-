@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ott_app/data/models/movie_model.dart';
 import 'package:ott_app/themes/spacing.dart';
+import 'package:ott_app/utils/context_extention.dart';
 
 import 'movie_item_widget.dart';
 
@@ -15,8 +16,8 @@ class MovieGridViewWidget extends StatelessWidget {
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: TTNFlixSpacing.intSpacing2,
+      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount:  context.isLargeScreen ? 4 : context.isMediumScreen ? 3 : 2,
         crossAxisSpacing: TTNFlixSpacing.spacing20,
         mainAxisSpacing: TTNFlixSpacing.spacing20,
         childAspectRatio: TTNFlixSpacing.spacing1_5,
